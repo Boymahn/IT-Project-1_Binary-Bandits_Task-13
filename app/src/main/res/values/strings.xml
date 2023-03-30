@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">TaskOptimizer</string>
+    <string name="title_home">Overview</string>
+    <string name="title_dashboard">Reminders</string>
+    <string name="title_notifications">Optimizer</string>
+</resources>
