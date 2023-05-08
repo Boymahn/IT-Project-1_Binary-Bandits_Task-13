@@ -34,6 +34,19 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+
+        binding.addTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
+
+    }
+
+    public void openDialog(){
+        AddTaskDialog dialog = new AddTaskDialog();
+        dialog.show(getSupportFragmentManager(),"Add Task Dialog");
     }
 
 }

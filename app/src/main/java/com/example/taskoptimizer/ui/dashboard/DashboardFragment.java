@@ -36,13 +36,6 @@ public class DashboardFragment extends Fragment {
         Overview_RecyclerViewAdapter adapter;
         try (SQLiteHandler db = new SQLiteHandler(binding.getRoot().getContext())) {
 
-            Task task1 = new Task("First Task", "28 08 97", "28 08 1997", 1, 1, 1);
-
-
-
-            //mText = new MutableLiveData<>();
-            //mText.setValue("This is dashboard fragment");
-            db.addTask(task1);
 
             List<Task> tasks = db.allTasks();
             recyclerView = binding.getRoot().findViewById(R.id.recycler_view);
@@ -54,7 +47,6 @@ public class DashboardFragment extends Fragment {
 
         //final TextView textView = binding.textDashboard;
         //dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
 
         return root;
     }

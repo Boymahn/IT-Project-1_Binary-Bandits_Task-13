@@ -3,4 +3,16 @@
     <string name="title_home">Overview</string>
     <string name="title_dashboard">Reminders</string>
     <string name="title_notifications">Optimizer</string>
+    <string name="add_tasks">Add Tasks</string>
+    <string name="description">Description</string>
+    <string name="BackArrow"><![CDATA[<-]]></string>
+    <string name="month_view">May 2023</string>
+    <string name="ForwardArrow"><![CDATA[->]]></string>
+    <string name="Sunday">SUN</string>
+    <string name="Monday">MON</string>
+    <string name="Tuesday">TUE</string>
+    <string name="Wednesday">WED</string>
+    <string name="Thurday">THU</string>
+    <string name="Friday">FRI</string>
+    <string name="Saturday">SAT</string>
 </resources>
