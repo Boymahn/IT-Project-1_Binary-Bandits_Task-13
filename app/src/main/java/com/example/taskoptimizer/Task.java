@@ -12,13 +12,13 @@ public class Task {
     private String description;
 
     public Task(String description, String end, int status) {
-        this.description =description;
+        this.description = description;
         this.end = end;
         this.status = status;
     }
 
     public Task(String description, String start, String end, int priority, int difficulty, int status) {
-        this.description =description;
+        this.description = description;
         this.start = start;
         this.end = end;
         this.priority = priority;
@@ -91,5 +91,9 @@ public class Task {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getRemainingTime(){
+        return end;
     }
 }

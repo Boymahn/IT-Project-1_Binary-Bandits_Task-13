@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -60,7 +61,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
-
         if(cursor.moveToFirst()){
             do{
                 Task task = new Task();
@@ -75,6 +75,28 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }
         cursor.close();
+        return tasks;
+    }
+    public List<Task> optimizedTasks(){
+        List<Task> tasks = new ArrayList<Task>();
+
+        String query = "SELECT * FROM " + TABLE_NAME +" WHERE priority IS NOT NULL AND difficulty IS NOT NULL";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            do{
+                Task task = new Task();
+                //task.setId(Integer.parseInt(cursor.getString(0)));
+                task.setDescription(cursor.getString(1));
+                task.setStart(cursor.getString(2));
+                task.setEnd(cursor.getString(3));
+                task.setPriority(cursor.getInt(4));
+                task.setDifficulty(cursor.getInt(5));
+                task.setStatus(cursor.getInt(6));
+                tasks.add(task);
+            }while(cursor.moveToNext());
+            cursor.close();
+        }
         return tasks;
     }
     public void addTask(Task task){

@@ -15,4 +15,5 @@
     <string name="Thurday">THU</string>
     <string name="Friday">FRI</string>
     <string name="Saturday">SAT</string>
+    <string name="optimize">Optimize</string>
 </resources>
