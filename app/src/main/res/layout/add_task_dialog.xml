@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/optimizeCheckBox"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -30,7 +29,7 @@
         tools:ignore="LabelFor" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/optimizeCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -39,5 +38,49 @@
         app:layout_constraintHorizontal_bias="0.359"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description_input" />
+
+    <TextView
+        android:id="@+id/priorityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/priority"
+        app:layout_constraintEnd_toStartOf="@+id/difficultyTextView"
+        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/optimizeCheckBox" />
+
+    <TextView
+        android:id="@+id/difficultyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="148dp"
+        android:text="@string/difficulty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description_input" />
+
+    <SeekBar
+        android:id="@+id/difficultySeekBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="104dp"
+        android:max="3"
+        android:progress="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/difficultyTextView" />
+
+    <SeekBar
+        android:id="@+id/prioritySeekBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="12dp"
+        android:max="3"
+        android:progress="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/priorityTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,4 +16,6 @@
     <string name="Friday">FRI</string>
     <string name="Saturday">SAT</string>
     <string name="optimize">Optimize</string>
+    <string name="priority">Priority</string>
+    <string name="difficulty">Difficulty</string>
 </resources>

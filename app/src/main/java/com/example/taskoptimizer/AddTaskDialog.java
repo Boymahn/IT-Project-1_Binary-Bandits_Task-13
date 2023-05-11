@@ -9,8 +9,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import java.util.Calendar;
@@ -19,7 +23,6 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
 
     private EditText editDescription;
     private Button dateButton;
-    private DatePickerDialog datePickerDialog;
     private String date;
 
 
@@ -46,8 +49,14 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
             }
         });
 
+
         editDescription = view.findViewById(R.id.description_input);
         dateButton =view.findViewById(R.id.set_date_btn);
+        SeekBar difficultySeekBar = view.findViewById(R.id.difficultySeekBar);
+        SeekBar prioritySeekBar = view.findViewById(R.id.prioritySeekBar);
+        CheckBox checkBox = view.findViewById(R.id.optimizeCheckBox);
+        TextView priorityTextView = view.findViewById(R.id.priorityTextView);
+        TextView difficultyTextView = view.findViewById(R.id.difficultyTextView);
         dateButton.setText(getTodayDate());
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +64,63 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
                 initDatePicker();
             }
         });
+        difficultySeekBar.setVisibility(View.GONE);
+        prioritySeekBar.setVisibility(View.GONE);
+        priorityTextView.setVisibility(View.GONE);
+        difficultyTextView.setVisibility(View.GONE);
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(checkBox.isChecked()){
+                    difficultySeekBar.setVisibility(View.VISIBLE);
+                    prioritySeekBar.setVisibility(View.VISIBLE);
+                    priorityTextView.setVisibility(View.VISIBLE);
+                    difficultyTextView.setVisibility(View.VISIBLE);
+                }
+                else{
+                    difficultySeekBar.setVisibility(View.GONE);
+                    prioritySeekBar.setVisibility(View.GONE);
+                    priorityTextView.setVisibility(View.GONE);
+                    difficultyTextView.setVisibility(View.GONE);
+                }
+
+            }
+        });
+
+        difficultySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        prioritySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         return builder.create();
     }
 
@@ -131,7 +197,7 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
         int style = AlertDialog.THEME_HOLO_LIGHT;
         date= makeDateString(day, month, year);
 
-        datePickerDialog = new DatePickerDialog(getActivity(), style, dateSetListener, year, month, day);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), style, dateSetListener, year, month, day);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
 
         datePickerDialog.show();

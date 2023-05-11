@@ -77,7 +77,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         cursor.close();
         return tasks;
     }
-    public List<Task> optimizedTasks(){
+    public List<Task> getOptimizedTasks(){
         List<Task> tasks = new ArrayList<Task>();
 
         String query = "SELECT * FROM " + TABLE_NAME +" WHERE priority IS NOT NULL AND difficulty IS NOT NULL";
