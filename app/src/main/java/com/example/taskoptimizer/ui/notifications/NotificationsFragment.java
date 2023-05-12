@@ -51,16 +51,23 @@ public class NotificationsFragment extends Fragment  implements CalendarAdapter.
         super.onDestroyView();
         binding = null;
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setMonthView(){
         monthYearText.setText(monthYearFromDate(selectedDate));
         ArrayList<String>daysInMonth = daysInMonthArray(selectedDate);
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
+        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, new CalendarAdapter.OnItemListener() {
+            @Override
+            public void onItemClick(int position, String dayText) {
+
+            }
+        });
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private ArrayList<String> daysInMonthArray(LocalDate date){
        ArrayList<String> daysInMonthArray = new ArrayList<>();
@@ -104,6 +111,7 @@ public class NotificationsFragment extends Fragment  implements CalendarAdapter.
         selectedDate = selectedDate.plusMonths(1);
         setMonthView();
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override

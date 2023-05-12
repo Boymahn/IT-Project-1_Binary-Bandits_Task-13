@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import java.util.Calendar;
@@ -24,6 +27,10 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
     private EditText editDescription;
     private Button dateButton;
     private String date;
+    private int difficulty = 0;
+    private int priority = 0;
+
+    CheckBox checkBox;
 
 
 
@@ -39,13 +46,22 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
 
             }
         }).setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
                 String description = editDescription.getText().toString();
-                try (SQLiteHandler db = new SQLiteHandler(getActivity())) {
-                    db.addTask(new Task(description, date, date, 1, 1, 1));
+                if(checkBox.isChecked()){
+                    try (SQLiteHandler db = new SQLiteHandler(getActivity())) {
+                        db.addOptimizedTask(new OptimizedTask(description, getTodayDate(), date, priority, difficulty, 1));
+                        db.updateOptimizedTasks();
+                    }
+                }else{
+                    try (SQLiteHandler db = new SQLiteHandler(getActivity())) {
+                        db.addTask(new Task(description, getTodayDate(), date, 1));
+                    }
                 }
+
             }
         });
 
@@ -54,7 +70,7 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
         dateButton =view.findViewById(R.id.set_date_btn);
         SeekBar difficultySeekBar = view.findViewById(R.id.difficultySeekBar);
         SeekBar prioritySeekBar = view.findViewById(R.id.prioritySeekBar);
-        CheckBox checkBox = view.findViewById(R.id.optimizeCheckBox);
+        checkBox = view.findViewById(R.id.optimizeCheckBox);
         TextView priorityTextView = view.findViewById(R.id.priorityTextView);
         TextView difficultyTextView = view.findViewById(R.id.difficultyTextView);
         dateButton.setText(getTodayDate());
@@ -92,6 +108,21 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
+                String diff = "Easy";
+                switch(progress){
+                    case 1:
+                        diff = "Easy";
+                        break;
+                    case 2:
+                        diff = "Medium";
+                        break;
+                    case 3:
+                        diff = "Hard";
+                        break;
+                }
+                difficulty = progress;
+                Toast.makeText(getContext(), "Difficulty: "+ diff,Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -107,6 +138,22 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
         prioritySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                String pri = "low";
+                switch(progress){
+                    case 1:
+                        pri = "Low";
+
+                        break;
+                    case 2:
+                        pri = "Medium";
+                        break;
+                    case 3:
+                        pri = "High";
+                        break;
+                }
+                priority = progress;
+                Toast.makeText(getContext(), "Difficulty: "+ pri,Toast.LENGTH_SHORT).show();
 
             }
 

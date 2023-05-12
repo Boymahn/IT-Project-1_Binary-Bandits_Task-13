@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.taskoptimizer.Overview_RecyclerViewAdapter;
-import com.example.taskoptimizer.Task;
 import com.example.taskoptimizer.SQLiteHandler;
 
 import java.util.List;

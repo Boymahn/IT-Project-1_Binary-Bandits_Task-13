@@ -5,37 +5,8 @@ public class Task {
     private int user_id;
     private String start;
     private String end;
-    private int priority;
-    private int difficulty;
-    private int status;
-
     private String description;
-
-    public Task(String description, String end, int status) {
-        this.description = description;
-        this.end = end;
-        this.status = status;
-    }
-
-    public Task(String description, String start, String end, int priority, int difficulty, int status) {
-        this.description = description;
-        this.start = start;
-        this.end = end;
-        this.priority = priority;
-        this.difficulty = difficulty;
-        this.status = status;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Task() {
-    }
+    private int status;
 
     public int getId() {
         return id;
@@ -69,20 +40,12 @@ public class Task {
         this.end = end;
     }
 
-    public int getPriority() {
-        return priority;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
-    public int getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(int difficulty) {
-        this.difficulty = difficulty;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getStatus() {
@@ -93,7 +56,13 @@ public class Task {
         this.status = status;
     }
 
-    public String getRemainingTime(){
-        return end;
+    public Task(String description, String start, String end, int status) {
+        this.description = description;
+        this.end = end;
+        this.status = status;
+        this.start = start;
+    }
+    public Task(){
+
     }
 }

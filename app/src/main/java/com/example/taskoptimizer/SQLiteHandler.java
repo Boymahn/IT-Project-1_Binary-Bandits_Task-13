@@ -5,10 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+
 
 
 public class SQLiteHandler extends SQLiteOpenHelper {
@@ -16,6 +21,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "TasksDB";
     private static final String TABLE_NAME = "Tasks";
+    private static final String OPTIMIZED_TABLE = "optimizedTasks";
     private static final String KEY_ID = "id";
     private static final String KEY_USER_ID = "user";
     private static final String DESCRIPTION = "description";
@@ -31,11 +37,16 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE = "CREATE TABLE Tasks( id " +
+        String CREATE_TABLE_OPTIMIZED_TASKS = "CREATE TABLE optimizedTasks( id " +
                 "INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT," +
                 "start_date TEXT, end_date TEXT, priority INTEGER, " +
-                "difficulty INTEGER, status INTEGER)";
+                "difficulty INTEGER, status INTEGER, initialTime " +
+                "INTEGER, timeWorked INTEGER, recommendedTime INTEGER)";
+        String CREATE_TABLE = "CREATE TABLE Tasks( id " +
+                "INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT," +
+                "start_date TEXT, end_date TEXT, status INTEGER)";
 
+        db.execSQL(CREATE_TABLE_OPTIMIZED_TASKS);
         db.execSQL(CREATE_TABLE);
 
     }
@@ -43,19 +54,20 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS optimizedTasks");
         this.onCreate(db);
     }
-    public void deleteTask(Task task){
+    public void deleteTask(OptimizedTask optimizedTask){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, "id = ?",new String[] {String.valueOf(task.getId())});
+        db.delete(TABLE_NAME, "id = ?",new String[] {String.valueOf(optimizedTask.getId())});
     }
     /*public Task getTasks(){
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = new String[] {"description", "start", "end", "priority"};
         Cursor cursor = db.query(TABLE_NAME,columns,null,null,null,null,null );
     }*/
-    public List<Task> allTasks(){
-        List<Task> tasks = new LinkedList<Task>();
+    public List<OptimizedTask> allTasks(){
+        List<OptimizedTask> optimizedTasks = new LinkedList<OptimizedTask>();
 
         String query = "SELECT * FROM "+ TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -63,41 +75,62 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()){
             do{
-                Task task = new Task();
+                OptimizedTask optimizedTask = new OptimizedTask();
                 //task.setId(Integer.parseInt(cursor.getString(0)));
-                task.setDescription(cursor.getString(1));
-                task.setStart(cursor.getString(2));
-                task.setEnd(cursor.getString(3));
-                task.setPriority(cursor.getInt(4));
-                task.setDifficulty(cursor.getInt(5));
-                task.setStatus(cursor.getInt(6));
-                tasks.add(task);
+                optimizedTask.setDescription(cursor.getString(1));
+                optimizedTask.setStart(cursor.getString(2));
+                optimizedTask.setEnd(cursor.getString(3));
+                optimizedTask.setStatus(cursor.getInt(4));
+                optimizedTasks.add(optimizedTask);
             }while(cursor.moveToNext());
         }
         cursor.close();
-        return tasks;
+        return optimizedTasks;
     }
-    public List<Task> getOptimizedTasks(){
-        List<Task> tasks = new ArrayList<Task>();
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public List<OptimizedTask> getOptimizeTasks(){
+        List<OptimizedTask> optimizedTasks = new ArrayList<OptimizedTask>();
 
-        String query = "SELECT * FROM " + TABLE_NAME +" WHERE priority IS NOT NULL AND difficulty IS NOT NULL";
+        String query = "SELECT * FROM " + OPTIMIZED_TABLE;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()){
             do{
-                Task task = new Task();
-                //task.setId(Integer.parseInt(cursor.getString(0)));
-                task.setDescription(cursor.getString(1));
-                task.setStart(cursor.getString(2));
-                task.setEnd(cursor.getString(3));
-                task.setPriority(cursor.getInt(4));
-                task.setDifficulty(cursor.getInt(5));
-                task.setStatus(cursor.getInt(6));
-                tasks.add(task);
+                OptimizedTask optimizedTask = new OptimizedTask();
+                optimizedTask.setId(Integer.parseInt(cursor.getString(0)));
+                optimizedTask.setDescription(cursor.getString(1));
+                optimizedTask.setStart(cursor.getString(2));
+                optimizedTask.setEnd(cursor.getString(3));
+                optimizedTask.setPriority(cursor.getInt(4));
+                optimizedTask.setDifficulty(cursor.getInt(5));
+                optimizedTask.setStatus(cursor.getInt(6));
+                optimizedTask.setInitialTime();
+                optimizedTask.setTimeWorked(cursor.getLong(8));
+                optimizedTask.setRecommendedTime();
+                optimizedTasks.add(optimizedTask);
             }while(cursor.moveToNext());
             cursor.close();
         }
-        return tasks;
+        return optimizedTasks;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void addOptimizedTask(OptimizedTask optimizedTask){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DESCRIPTION, optimizedTask.getDescription());
+        values.put(START_DATE, optimizedTask.getStart());
+        values.put(END_DATE, optimizedTask.getEnd());
+        values.put(PRIORITY, optimizedTask.getPriority());
+        values.put(DIFFICULTY, optimizedTask.getDifficulty());
+        values.put(STATUS, optimizedTask.getStatus());
+        optimizedTask.setInitialTime();
+        values.put("initialTime", optimizedTask.getInitialTime());
+        values.put("timeWorked", optimizedTask.getTimeWorked());
+        optimizedTask.setRecommendedTime();
+        values.put("recommendedTime", optimizedTask.getRecommendedTime());
+
+        db.insert(OPTIMIZED_TABLE,null,values);
+
     }
     public void addTask(Task task){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -105,24 +138,34 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         values.put(DESCRIPTION, task.getDescription());
         values.put(START_DATE, task.getStart());
         values.put(END_DATE, task.getEnd());
-        values.put(PRIORITY, task.getPriority());
-        values.put(DIFFICULTY, task.getDifficulty());
         values.put(STATUS, task.getStatus());
-
         db.insert(TABLE_NAME,null,values);
-
     }
-    public int updateTask(Task task){
+    public int updateTask(OptimizedTask optimizedTask){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DESCRIPTION, task.getDescription());
-        values.put(END_DATE, task.getEnd());
-        values.put(STATUS, task.getStatus());
+        values.put(DESCRIPTION, optimizedTask.getDescription());
+        values.put(END_DATE, optimizedTask.getEnd());
+        values.put(STATUS, optimizedTask.getStatus());
 
-        int i = db.update(TABLE_NAME, values,"id=?",new String[] {String.valueOf(task.getId())});
+        int i = db.update(TABLE_NAME, values,"id=?",new String[] {String.valueOf(optimizedTask.getId())});
         db.close();
-
         return i;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void updateOptimizedTasks(){
+        List<OptimizedTask> optimizedTasks;
+        Optimizer optimizer = new Optimizer(getOptimizeTasks());
+
+        optimizedTasks = optimizer.getOptimizedTasks();
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        for(int i =0; i<optimizedTasks.size(); i++ ){
+            values.put("recommendedTime", optimizedTasks.get(i).getRecommendedTime());
+            db.update(OPTIMIZED_TABLE, values,"id=?",new String[] {String.valueOf(optimizedTasks.get(i).getId())});
+        }
+
+        db.close();
     }
 
 }

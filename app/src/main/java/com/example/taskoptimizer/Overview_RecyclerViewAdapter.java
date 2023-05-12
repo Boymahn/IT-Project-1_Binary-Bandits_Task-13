@@ -15,11 +15,11 @@ import java.util.List;
 
 public class Overview_RecyclerViewAdapter extends RecyclerView.Adapter<Overview_RecyclerViewAdapter.MyViewHolder> {
 Context context;
-List<Task> tasks;
+List<OptimizedTask> optimizedTasks;
 
-public Overview_RecyclerViewAdapter(Context context, List<Task> tasks){
+public Overview_RecyclerViewAdapter(Context context, List<OptimizedTask> optimizedTasks){
     this.context =context;
-    this.tasks = tasks;
+    this.optimizedTasks = optimizedTasks;
 }
 
 
@@ -34,14 +34,14 @@ public Overview_RecyclerViewAdapter(Context context, List<Task> tasks){
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-    holder.description.setText(tasks.get(position).getDescription());
-    holder.date.setText(tasks.get(position).getEnd());
+    holder.description.setText(optimizedTasks.get(position).getDescription());
+    holder.date.setText(optimizedTasks.get(position).getEnd());
 
     }
 
     @Override
     public int getItemCount() {
-        return tasks.size();
+        return optimizedTasks.size();
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
