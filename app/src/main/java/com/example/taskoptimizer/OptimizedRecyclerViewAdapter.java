@@ -40,9 +40,9 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
         holder.description.setText(optimizedTaskList.get(position).getDescription());
         holder.priority.setText("Priority: "+optimizedTaskList.get(position).getPriority());
         holder.difficulty.setText("Difficulty: "+optimizedTaskList.get(position).getDifficulty() );
-        holder.timeRemaining.setText("Remaining Time: "+(int) optimizedTaskList.get(position).getRemainingTime());
+        holder.timeRemaining.setText("Remaining Time: "+(int) optimizedTaskList.get(position).getRemainingTime() + "days");
         holder.timeWorkedOn.setText("Time spent on task: "+(int) optimizedTaskList.get(position).getTimeWorked());
-        holder.timeToWork.setText("Suggested daily work: "+(int)optimizedTaskList.get(position).getRecommendedTime());
+        holder.timeToWork.setText("Suggested Time to work: "+(int)optimizedTaskList.get(position).getRecommendedTime() +" minutes");
 
     }
 
