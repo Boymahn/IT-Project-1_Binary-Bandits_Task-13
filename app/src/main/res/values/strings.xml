@@ -18,4 +18,8 @@
     <string name="optimize">Optimize</string>
     <string name="priority">Priority</string>
     <string name="difficulty">Difficulty</string>
+    <string name="time_remaining">Remaining Time:</string>
+    <string name="date">Date:</string>
+    <string name="time_worked_on_task">Time worked on task:</string>
+    <string name="suggested_daily_work">Suggested Daily Work:</string>
 </resources>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,12 +40,32 @@ public class NotificationsFragment extends Fragment  implements CalendarAdapter.
 
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        initWidgets();
         selectedDate = LocalDate.now();
+        calendarRecyclerView = binding.getRoot().findViewById(R.id.calendarRecyclerView);
+        monthYearText = binding.getRoot().findViewById(R.id.textView);
+
+        Button nextMonth = binding.getRoot().findViewById(R.id.nextMonthAction);
+        Button previousMonth = binding.getRoot().findViewById(R.id.previousMonthAction);
         setMonthView();
+
+        nextMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedDate = selectedDate.plusMonths(1);
+                setMonthView();
+            }
+        });
+        previousMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedDate = selectedDate.minusMonths(1);
+                setMonthView();
+            }
+        });
 
         return root;
     }
+
 
     @Override
     public void onDestroyView() {
@@ -57,12 +78,7 @@ public class NotificationsFragment extends Fragment  implements CalendarAdapter.
         monthYearText.setText(monthYearFromDate(selectedDate));
         ArrayList<String>daysInMonth = daysInMonthArray(selectedDate);
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, new CalendarAdapter.OnItemListener() {
-            @Override
-            public void onItemClick(int position, String dayText) {
-
-            }
-        });
+        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth,this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
@@ -95,31 +111,13 @@ public class NotificationsFragment extends Fragment  implements CalendarAdapter.
         return date.format(formatter);
     }
 
-    private void initWidgets(){
-        calendarRecyclerView = binding.getRoot().findViewById(R.id.calendarRecyclerView);
-        monthYearText = binding.getRoot().findViewById(R.id.textView);
-
-    }
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void previousMonthAction(View view){
-        selectedDate = selectedDate.minusMonths(1);
-        setMonthView();
-
-    }
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void nextMonthAction(View view){
-        selectedDate = selectedDate.plusMonths(1);
-        setMonthView();
-    }
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onItemClick(int position, String dayText) {
 
-        if(dayText.equals("")){
             String message = "Selected Date "+ dayText +" "+ monthYearFromDate(selectedDate);
-            Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
-        }
+            Toast.makeText(getActivity(),message,Toast.LENGTH_LONG).show();
+
     }
 }

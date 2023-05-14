@@ -153,8 +153,8 @@ public class OptimizedTask {
         day = Integer.parseInt(endDate[1]);
         year = Integer.parseInt(endDate[2]);
 
-        LocalDate today = LocalDate.now();
-        LocalDate dueDate = LocalDate.of(year,endMonth,day);
+        LocalDateTime today = LocalDateTime.now();
+        LocalDateTime dueDate = LocalDateTime.of(year,endMonth,day,23,59);
 
         Duration duration = Duration.between(today,dueDate);
 
@@ -181,7 +181,7 @@ public class OptimizedTask {
         return initialTime;
     }
     private int monthFormat(String date){
-        int endMonth,day,year;
+        int endMonth;
 
         String[] endDate = date.split("\\s+");
         switch (endDate[0]){
