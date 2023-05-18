@@ -5,12 +5,15 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<OptimizedRecyclerViewAdapter.OptimizedViewHolder> {
@@ -19,10 +22,17 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
 
     List<OptimizedTask> optimizedTaskList;
 
+
+
     public OptimizedRecyclerViewAdapter(Context context, List<OptimizedTask> optimizedTasks){
         this.context = context;
         this.optimizedTaskList = optimizedTasks;
     }
+
+    public void update(){
+        this.notifyItemInserted(optimizedTaskList.size()-1);
+    }
+
 
     @NonNull
     @Override
@@ -36,13 +46,14 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
     @Override
     public void onBindViewHolder(@NonNull OptimizedRecyclerViewAdapter.OptimizedViewHolder holder, int position) {
 
-        holder.date.setText(" "+optimizedTaskList.get(position).getEnd());
+        holder.date.setText(MessageFormat.format(" {0}", optimizedTaskList.get(position).getEnd()));
         holder.description.setText(optimizedTaskList.get(position).getDescription());
-        holder.priority.setText("Priority: "+optimizedTaskList.get(position).getPriority());
-        holder.difficulty.setText("Difficulty: "+optimizedTaskList.get(position).getDifficulty() );
-        holder.timeRemaining.setText("Remaining Time: "+(int) optimizedTaskList.get(position).getRemainingTime() + "days");
-        holder.timeWorkedOn.setText("Time spent on task: "+(int) optimizedTaskList.get(position).getTimeWorked());
-        holder.timeToWork.setText("Suggested Time to work: "+(int)optimizedTaskList.get(position).getRecommendedTime() +" minutes");
+        holder.priority.setText(MessageFormat.format("Priority: {0}", optimizedTaskList.get(position).getPriority()));
+        holder.difficulty.setText(MessageFormat.format("Estimated Time: {0}", optimizedTaskList.get(position).getDifficulty()));
+        holder.timeRemaining.setText(MessageFormat.format("Remaining Time: {0}days", (int) optimizedTaskList.get(position).getRemainingTime()));
+        holder.timeWorkedOn.setText(MessageFormat.format("Time spent on: {0}", (int) optimizedTaskList.get(position).getTimeWorked()));
+        holder.timeToWork.setText(MessageFormat.format("Suggested time daily: {0} minutes", optimizedTaskList.get(position).getRecommendedTime()));
+
 
     }
 
@@ -54,16 +65,26 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
 
     public static class OptimizedViewHolder extends RecyclerView.ViewHolder
     {
+
         TextView priority, description, date, timeRemaining, timeWorkedOn, timeToWork, difficulty;
+        ImageButton delete, edit, focus;
+        CheckBox completed_checkbox;
         public OptimizedViewHolder(@NonNull View itemView) {
             super(itemView);
             priority = itemView.findViewById(R.id.priority_label);
             difficulty = itemView.findViewById(R.id.difficulty_textView);
-            description = itemView.findViewById(R.id.description);
+            description = itemView.findViewById(R.id.description_textview);
             date = itemView.findViewById(R.id.date_textView);
             timeRemaining = itemView.findViewById(R.id.remainingTime_textView);
             timeWorkedOn = itemView.findViewById(R.id.timeWorkedOnTask_textview);
-            timeToWork = itemView.findViewById(R.id.suggestedDaily_testview);
+            timeToWork = itemView.findViewById(R.id.suggestedDailyTime_textView);
+            focus = itemView.findViewById(R.id.focus_btn);
+            delete = itemView.findViewById(R.id.delete_btn);
+            edit = itemView.findViewById(R.id.edit_btn);
+            completed_checkbox = itemView.findViewById(R.id.completed_checkBox);
+
         }
+
+
     }
 }

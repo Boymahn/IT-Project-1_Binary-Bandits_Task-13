@@ -33,7 +33,6 @@ public class OptimizedTask {
         this.priority = priority;
         this.difficulty = difficulty;
         this.status = status;
-        setRecommendedTime();
     }
 
     public String getDescription() {
@@ -229,7 +228,7 @@ public class OptimizedTask {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void setRecommendedTime(){
+    public void calcRecommendedTime(int difficulty, int priority){
         int difficultyTime, priorityTime;
 
         switch (difficulty){
@@ -258,7 +257,10 @@ public class OptimizedTask {
             default:
                 priorityTime = 0;
         }
-        recommendedTime = initialTime * (difficultyTime + priorityTime);
+        recommendedTime = difficultyTime + priorityTime;
+    }
+    public void setRecommendedTime(long recommendedTime){
+        this.recommendedTime = recommendedTime;
     }
     public void alterRecommendedTime(long time,String operation){
         switch (operation){

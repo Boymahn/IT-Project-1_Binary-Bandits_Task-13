@@ -21,6 +21,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class AddTaskDialog  extends AppCompatDialogFragment {
 
@@ -50,16 +51,21 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+
+
                 String description = editDescription.getText().toString();
-                if(checkBox.isChecked()){
-                    try (SQLiteHandler db = new SQLiteHandler(getActivity())) {
+
+                try (SQLiteHandler db = new SQLiteHandler(getActivity())) {
+
+                   OptimizedRecyclerViewAdapter adapter = new OptimizedRecyclerViewAdapter(getActivity(),db.allTasks());
+                    if(checkBox.isChecked()){
                         db.addOptimizedTask(new OptimizedTask(description, getTodayDate(), date, priority, difficulty, 1));
                         db.updateOptimizedTasks();
-                    }
-                }else{
-                    try (SQLiteHandler db = new SQLiteHandler(getActivity())) {
+                    }else{
                         db.addTask(new Task(description, getTodayDate(), date, 1));
                     }
+
+                    adapter.update();
                 }
 
             }

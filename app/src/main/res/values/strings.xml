@@ -12,14 +12,17 @@
     <string name="Monday">MON</string>
     <string name="Tuesday">TUE</string>
     <string name="Wednesday">WED</string>
-    <string name="Thurday">THU</string>
+    <string name="Thursday">THU</string>
     <string name="Friday">FRI</string>
     <string name="Saturday">SAT</string>
     <string name="optimize">Optimize</string>
     <string name="priority">Priority</string>
-    <string name="difficulty">Difficulty</string>
+    <string name="estimated">Estimated duration</string>
     <string name="time_remaining">Remaining Time:</string>
     <string name="date">Date:</string>
     <string name="time_worked_on_task">Time worked on task:</string>
-    <string name="suggested_daily_work">Suggested Daily Work:</string>
+    <string name="suggested_daily_work">Suggested time daily:</string>
+    <string name="delete">Delete Button</string>
+    <string name="focus">Focus</string>
+    <string name="focus_button">Focus Button</string>
 </resources>

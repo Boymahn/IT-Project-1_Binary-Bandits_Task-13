@@ -104,9 +104,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 optimizedTask.setPriority(cursor.getInt(4));
                 optimizedTask.setDifficulty(cursor.getInt(5));
                 optimizedTask.setStatus(cursor.getInt(6));
-                optimizedTask.setInitialTime();
                 optimizedTask.setTimeWorked(cursor.getLong(8));
-                optimizedTask.setRecommendedTime();
+                optimizedTask.setRecommendedTime(cursor.getLong(9));
                 optimizedTasks.add(optimizedTask);
             }while(cursor.moveToNext());
             cursor.close();
@@ -126,7 +125,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         optimizedTask.setInitialTime();
         values.put("initialTime", optimizedTask.getInitialTime());
         values.put("timeWorked", optimizedTask.getTimeWorked());
-        optimizedTask.setRecommendedTime();
+        optimizedTask.calcRecommendedTime(optimizedTask.getDifficulty(), optimizedTask.getPriority());
         values.put("recommendedTime", optimizedTask.getRecommendedTime());
 
         db.insert(OPTIMIZED_TABLE,null,values);
@@ -166,6 +165,15 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         }
 
         db.close();
+    }
+    public void deleteOptimizedTask(int id){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        db.execSQL("DELETE FROM optimizedTasks WHERE id = "+id);
+
+
     }
 
 }

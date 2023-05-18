@@ -42,9 +42,10 @@ public class HomeFragment extends Fragment {
             List<OptimizedTask> optimizedTaskList = db.getOptimizeTasks();
             recyclerView = binding.getRoot().findViewById(R.id.optimized_recyclerView);
             adapter = new OptimizedRecyclerViewAdapter(binding.getRoot().getContext(), optimizedTaskList);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         }
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
+
 
 
         return root;
