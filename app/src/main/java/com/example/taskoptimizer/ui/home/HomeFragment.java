@@ -1,5 +1,6 @@
 package com.example.taskoptimizer.ui.home;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ public class HomeFragment extends Fragment {
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -42,11 +44,10 @@ public class HomeFragment extends Fragment {
             List<OptimizedTask> optimizedTaskList = db.getOptimizeTasks();
             recyclerView = binding.getRoot().findViewById(R.id.optimized_recyclerView);
             adapter = new OptimizedRecyclerViewAdapter(binding.getRoot().getContext(), optimizedTaskList);
-            recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
+
         }
-
-
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
         return root;
     }

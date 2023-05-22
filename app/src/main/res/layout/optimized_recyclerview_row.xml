@@ -8,6 +8,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="180dp"
+        app:cardBackgroundColor="#00BCD4"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp"
+        app:cardPreventCornerOverlap="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,19 +115,19 @@
 
             <ImageButton
                 android:id="@+id/edit_btn"
-                android:layout_width="58dp"
-                android:layout_height="63dp"
+                android:layout_width="65dp"
+                android:layout_height="62dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="4dp"
                 android:contentDescription="@string/BackArrow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/baseline_edit_24"
-                tools:ignore="MissingConstraints" />
+                tools:ignore="MissingConstraints,ImageContrastCheck" />
 
             <ImageButton
                 android:id="@+id/focus_btn"
-                android:layout_width="57dp"
+                android:layout_width="65dp"
                 android:layout_height="56dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="4dp"
