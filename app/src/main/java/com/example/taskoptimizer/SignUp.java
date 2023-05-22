@@ -10,53 +10,41 @@ import com.google.android.material.button.MaterialButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class SignUp extends AppCompatActivity {
 
     private TextView username;
     private TextView password;
-    private MaterialButton loginbtn;
+    private TextView confpassword;
     private MaterialButton singupbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_signin);
 
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
-        loginbtn = findViewById(R.id.loginbtn);
+        confpassword = findViewById(R.id.confpassword);
         singupbtn = findViewById(R.id.signupbtn);
-
-        loginbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
-                    // Correct credentials
-                    Toast.makeText(MainActivity.this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
-                    // Open another activity after successful login
-                    openDashboardPage();
-                } else {
-                    // Incorrect credentials
-                    Toast.makeText(MainActivity.this, "LOGIN FAILED", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         singupbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openSignUpPage();
+                if (username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
+                    // Correct credentials
+                    Toast.makeText(SignUp.this, "SIGNUP SUCCESSFUL", Toast.LENGTH_SHORT).show();
+                    // Open another activity after successful login
+                    openDashboardPage();
+                } else {
+                    // Incorrect credentials
+                    Toast.makeText(SignUp.this, "PASSWORDS DO NOT MATCH", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
     private void openDashboardPage() {
-        Intent intent = new Intent(MainActivity.this, UserView.class);
-        startActivity(intent);
-    }
-
-    private void openSignUpPage() {
-        Intent intent = new Intent(MainActivity.this, SignUp.class);
+        Intent intent = new Intent(SignUp.this, UserView.class);
         startActivity(intent);
     }
 }
