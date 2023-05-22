@@ -19,6 +19,10 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.taskoptimizer.ui.home.HomeFragment;
 
 import java.util.Calendar;
 import java.util.List;
@@ -57,15 +61,21 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
 
                 try (SQLiteHandler db = new SQLiteHandler(getActivity())) {
 
-                   OptimizedRecyclerViewAdapter adapter = new OptimizedRecyclerViewAdapter(getActivity(),db.allTasks());
+
                     if(checkBox.isChecked()){
+
                         db.addOptimizedTask(new OptimizedTask(description, getTodayDate(), date, priority, difficulty, 1));
                         db.updateOptimizedTasks();
+                        OptimizedRecyclerViewAdapter adapter = new OptimizedRecyclerViewAdapter(getActivity(),db.allTasks());
+                        adapter.update();
+                        Fragment newFragment = new HomeFragment();
+                        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+                        ft.replace(R.id.homeFragment,newFragment).commit();
                     }else{
                         db.addTask(new Task(description, getTodayDate(), date, 1));
                     }
 
-                    adapter.update();
+
                 }
 
             }

@@ -35,7 +35,6 @@ public class DashboardFragment extends Fragment {
         RecyclerView recyclerView;
         Overview_RecyclerViewAdapter adapter;
         try (SQLiteHandler db = new SQLiteHandler(binding.getRoot().getContext())) {
-
             List<OptimizedTask> optimizedTasks = db.allTasks();
             recyclerView = binding.getRoot().findViewById(R.id.recycler_view);
             adapter = new Overview_RecyclerViewAdapter(binding.getRoot().getContext(), optimizedTasks);
