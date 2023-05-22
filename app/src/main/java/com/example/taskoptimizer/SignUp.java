@@ -30,7 +30,7 @@ public class SignUp extends AppCompatActivity {
         singupbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
+                if (confpassword.getText().toString().equals(password.getText().toString())) {
                     // Correct credentials
                     Toast.makeText(SignUp.this, "SIGNUP SUCCESSFUL", Toast.LENGTH_SHORT).show();
                     // Open another activity after successful login
