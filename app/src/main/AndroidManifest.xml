@@ -12,10 +12,8 @@
         android:theme="@style/Theme.TaskOptimizer"
         tools:targetApi="31">
         <activity
-            android:name=".login"
-            android:exported="false"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.TaskOptimizer.NoActionBar" />
+            android:name=".NavBarControl"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
