@@ -6,9 +6,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.taskoptimizer.ui.home.HomeFragment;
 import com.google.android.material.button.MaterialButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private void openDashboardPage() {
         Intent intent = new Intent(MainActivity.this, UserView.class);
         startActivity(intent);
+
     }
 
     private void openSignUpPage() {
