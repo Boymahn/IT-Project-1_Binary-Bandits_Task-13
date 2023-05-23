@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openDashboardPage() {
-        Intent intent = new Intent(MainActivity.this, UserView.class);
+        Intent intent = new Intent(MainActivity.this, NavBarControl.class);
         startActivity(intent);
 
     }
