@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView username;
     private TextView password;
     private MaterialButton loginbtn;
+    private MaterialButton singupbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         loginbtn = findViewById(R.id.loginbtn);
+        singupbtn = findViewById(R.id.signupbtn);
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,18 +37,30 @@ public class MainActivity extends AppCompatActivity {
                     // Correct credentials
                     Toast.makeText(MainActivity.this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
                     // Open another activity after successful login
-                    openNewActivity();
+                    openDashboardPage();
                 } else {
                     // Incorrect credentials
                     Toast.makeText(MainActivity.this, "LOGIN FAILED", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        singupbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSignUpPage();
+            }
+        });
     }
 
-    private void openNewActivity() {
-        Intent intent = new Intent(MainActivity.this, NavBarControl.class);
+    private void openDashboardPage() {
+        Intent intent = new Intent(MainActivity.this, UserView.class);
         startActivity(intent);
 
+    }
+
+    private void openSignUpPage() {
+        Intent intent = new Intent(MainActivity.this, SignUp.class);
+        startActivity(intent);
     }
 }
