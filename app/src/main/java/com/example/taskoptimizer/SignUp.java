@@ -44,7 +44,7 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void openDashboardPage() {
-        Intent intent = new Intent(SignUp.this, UserView.class);
+        Intent intent = new Intent(SignUp.this, NavBarControl.class);
         startActivity(intent);
     }
 }
