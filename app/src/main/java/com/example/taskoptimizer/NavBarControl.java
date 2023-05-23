@@ -5,9 +5,12 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,8 +35,6 @@ public class NavBarControl extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         FloatingActionButton fab = findViewById(R.id.add_task);
-
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,11 +42,45 @@ public class NavBarControl extends AppCompatActivity {
             }
         });
 
+
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_bar,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+       switch(item.getItemId()){
+           case R.id.chatBox:
+               openChatBox();
+               return true;
+           case R.id.settings:
+               openSettings();
+               return true;
+           case R.id.about:
+               openAbout();
+               return true;
+           case R.id.feedback:
+               openFeedback();
+               return true;
+       }
+        return (super.onOptionsItemSelected(item));
+    }
+
+    private void openSettings() {
+    }
+
+    private void openChatBox() {
+    }
+    private void openAbout(){}
+
+    private void openFeedback(){}
 
     public void openDialog(){
         AddTaskDialog dialog = new AddTaskDialog();
         dialog.show(getSupportFragmentManager(),"Add Task Dialog");
     }
+
 
 }

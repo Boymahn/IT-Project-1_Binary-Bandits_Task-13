@@ -23,6 +23,60 @@ public class OptimizedTask {
 
     private String description;
 
+    public void setInitialTime(long initialTime) {
+        this.initialTime = initialTime;
+    }
+
+    public long getLowPriority() {
+        return lowPriority;
+    }
+
+    public void setLowPriority(long lowPriority) {
+        this.lowPriority = lowPriority;
+    }
+
+    public long getMidPriority() {
+        return midPriority;
+    }
+
+    public void setMidPriority(long midPriority) {
+        this.midPriority = midPriority;
+    }
+
+    public long getHighPriority() {
+        return highPriority;
+    }
+
+    public void setHighPriority(long highPriority) {
+        this.highPriority = highPriority;
+    }
+
+    public long getLowEstimated() {
+        return lowEstimated;
+    }
+
+    public void setLowEstimated(long lowEstimated) {
+        this.lowEstimated = lowEstimated;
+    }
+
+    public long getMidEstimated() {
+        return midEstimated;
+    }
+
+    public void setMidEstimated(long midEstimated) {
+        this.midEstimated = midEstimated;
+    }
+
+    public long getHighEstimated() {
+        return highEstimated;
+    }
+
+    public void setHighEstimated(long highEstimated) {
+        this.highEstimated = highEstimated;
+    }
+
+    private long lowPriority,midPriority, highPriority, lowEstimated,midEstimated, highEstimated;
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -222,40 +276,40 @@ public class OptimizedTask {
                 endMonth = 12;
                 break;
             default:
-                endMonth =0;
+                endMonth = 1;
         }
         return endMonth;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void calcRecommendedTime(int difficulty, int priority){
-        int difficultyTime, priorityTime;
+        long difficultyTime, priorityTime;
 
         switch (difficulty){
             case 1:
-                difficultyTime = 30;
+                difficultyTime = getLowEstimated();
                 break;
             case 2:
-                difficultyTime = 60;
+                difficultyTime = getMidEstimated();
                 break;
             case 3:
-                difficultyTime = 120;
+                difficultyTime = getHighEstimated();
                 break;
             default:
-                difficultyTime = 0;
+                difficultyTime = 20;
         }
         switch (priority){
             case 1:
-                priorityTime = 10;
+                priorityTime = getLowPriority();
                 break;
             case 2:
-                priorityTime = 60;
+                priorityTime = getMidPriority();
                 break;
             case 3:
-                priorityTime = 90;
+                priorityTime = getHighPriority();
                 break;
             default:
-                priorityTime = 0;
+                priorityTime = 10;
         }
         recommendedTime = difficultyTime + priorityTime;
     }

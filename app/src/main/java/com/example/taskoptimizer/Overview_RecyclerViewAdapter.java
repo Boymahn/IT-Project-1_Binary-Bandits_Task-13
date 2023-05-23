@@ -21,7 +21,9 @@ public Overview_RecyclerViewAdapter(Context context, List<OptimizedTask> optimiz
     this.context =context;
     this.optimizedTasks = optimizedTasks;
 }
-
+    public void update(int position){
+        this.notifyItemInserted(position);
+    }
 
     @NonNull
     @Override
