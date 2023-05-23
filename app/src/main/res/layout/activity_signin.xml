@@ -70,14 +70,14 @@
         android:backgroundTint="@color/design_default_color_on_secondary"
         android:layout_margin="20dp"/>
 
-    <EditText
+    <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/back"
+        android:id="@+id/backbtn"
         android:layout_below="@id/signupbtn"
-        android:text="Back"
-        android:textColor="@color/white"
         android:layout_centerHorizontal="true"
+        android:text="BACK"
+        android:backgroundTint="@color/design_default_color_on_secondary"
         android:layout_margin="20dp"/>
 
 </RelativeLayout>

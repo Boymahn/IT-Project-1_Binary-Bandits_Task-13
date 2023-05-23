@@ -68,14 +68,4 @@
         android:backgroundTint="@color/design_default_color_on_secondary"
         android:text="SIGN UP" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/forgotpass"
-        android:layout_below="@id/signupbtn"
-        android:text="Forgot Password"
-        android:textColor="@color/white"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"/>
-
 </RelativeLayout>
