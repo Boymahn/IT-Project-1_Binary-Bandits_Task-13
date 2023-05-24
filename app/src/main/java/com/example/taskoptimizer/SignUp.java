@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.material.button.MaterialButton;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SignUp extends AppCompatActivity {
@@ -47,17 +45,17 @@ public class SignUp extends AppCompatActivity {
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openLogInPage();
+                openLoginPage();
             }
         });
     }
 
     private void openDashboardPage() {
-        Intent intent = new Intent(SignUp.this, UserView.class);
+        Intent intent = new Intent(SignUp.this, NavBarControl.class);
         startActivity(intent);
     }
 
-    private void openLogInPage() {
+    private void openLoginPage() {
         Intent intent = new Intent(SignUp.this, MainActivity.class);
         startActivity(intent);
     }

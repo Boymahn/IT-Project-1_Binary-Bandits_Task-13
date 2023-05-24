@@ -29,8 +29,14 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
         this.optimizedTaskList = optimizedTasks;
     }
 
-    public void update(){
-        this.notifyItemInserted(optimizedTaskList.size()-1);
+    public void updateAdded(int position){
+        this.notifyItemInserted(position);
+    }
+
+    public void updateDeleted(int position){
+        this.notifyItemRemoved(position);
+        this.notifyItemRangeChanged(position, optimizedTaskList.size());
+
     }
 
 
@@ -54,6 +60,17 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
         holder.timeWorkedOn.setText(MessageFormat.format("Time spent on: {0}", (int) optimizedTaskList.get(position).getTimeWorked()));
         holder.timeToWork.setText(MessageFormat.format("Suggested time daily: {0} minutes", optimizedTaskList.get(position).getRecommendedTime()));
 
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLiteHandler db = new SQLiteHandler(context);
+                db.deleteOptimizedTask(optimizedTaskList.get(holder.getAdapterPosition()).getId());
+                optimizedTaskList.remove(holder.getAdapterPosition());
+                updateDeleted(holder.getAdapterPosition());
+
+            }
+        });
+
 
     }
 
@@ -63,8 +80,7 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
         return optimizedTaskList.size();
     }
 
-    public static class OptimizedViewHolder extends RecyclerView.ViewHolder
-    {
+    public static class OptimizedViewHolder extends RecyclerView.ViewHolder {
 
         TextView priority, description, date, timeRemaining, timeWorkedOn, timeToWork, difficulty;
         ImageButton delete, edit, focus;
