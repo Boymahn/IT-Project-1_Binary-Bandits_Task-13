@@ -14,6 +14,7 @@ public class SignUp extends AppCompatActivity {
     private TextView password;
     private TextView confpassword;
     private MaterialButton singupbtn;
+    private MaterialButton backbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class SignUp extends AppCompatActivity {
         password = findViewById(R.id.password);
         confpassword = findViewById(R.id.confpassword);
         singupbtn = findViewById(R.id.signupbtn);
+        backbtn = findViewById(R.id.backbtn);
 
         singupbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,10 +41,22 @@ public class SignUp extends AppCompatActivity {
                 }
             }
         });
+
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLoginPage();
+            }
+        });
     }
 
     private void openDashboardPage() {
         Intent intent = new Intent(SignUp.this, NavBarControl.class);
+        startActivity(intent);
+    }
+
+    private void openLoginPage() {
+        Intent intent = new Intent(SignUp.this, MainActivity.class);
         startActivity(intent);
     }
 }
