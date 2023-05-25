@@ -23,6 +23,8 @@ public class OptimizedTask {
 
     private String description;
 
+    private long lowPriority,midPriority, highPriority, lowEstimated,midEstimated, highEstimated;
+
     public void setInitialTime(long initialTime) {
         this.initialTime = initialTime;
     }
@@ -75,7 +77,7 @@ public class OptimizedTask {
         this.highEstimated = highEstimated;
     }
 
-    private long lowPriority,midPriority, highPriority, lowEstimated,midEstimated, highEstimated;
+
 
 
 
@@ -215,7 +217,6 @@ public class OptimizedTask {
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void setInitialTime(){
-        String[] startDateString = start.split("\\s+");
 
         String[] endDateString = end.split("\\s+");
         int endMonth = monthFormat(end);

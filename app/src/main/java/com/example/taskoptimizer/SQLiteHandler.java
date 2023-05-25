@@ -57,15 +57,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS optimizedTasks");
         this.onCreate(db);
     }
-    public void deleteTask(OptimizedTask optimizedTask){
+    public void deleteTask(Task task){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, "id = ?",new String[] {String.valueOf(optimizedTask.getId())});
+        db.delete(TABLE_NAME, "id = ?",new String[] {String.valueOf(task.getId())});
     }
-    /*public Task getTasks(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = new String[] {"description", "start", "end", "priority"};
-        Cursor cursor = db.query(TABLE_NAME,columns,null,null,null,null,null );
-    }*/
+
     public List<OptimizedTask> allTasks(){
         List<OptimizedTask> optimizedTasks = new LinkedList<OptimizedTask>();
 

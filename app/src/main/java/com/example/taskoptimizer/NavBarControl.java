@@ -5,6 +5,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -69,13 +71,23 @@ public class NavBarControl extends AppCompatActivity {
     }
 
     private void openSettings() {
+        Intent intent = new Intent(NavBarControl.this, Settings.class);
+        startActivity(intent);
     }
 
     private void openChatBox() {
+        Intent intent = new Intent(NavBarControl.this, ChatBox.class);
+        startActivity(intent);
     }
-    private void openAbout(){}
+    private void openAbout(){
+        Intent intent = new Intent(NavBarControl.this, About.class);
+        startActivity(intent);
+    }
 
-    private void openFeedback(){}
+    private void openFeedback(){
+        Intent intent = new Intent(NavBarControl.this, Feedback.class);
+        startActivity(intent);
+    }
 
     public void openDialog(){
         AddTaskDialog dialog = new AddTaskDialog();
