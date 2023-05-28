@@ -2,6 +2,8 @@ package com.example.taskoptimizer;
 
 import android.content.Context;
 import android.os.Build;
+import android.service.notification.NotificationListenerService;
+import android.service.notification.StatusBarNotification;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import java.util.List;
 public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<OptimizedRecyclerViewAdapter.OptimizedViewHolder> {
 
     Context context;
+    FocusTimer focusTimer;
 
     List<OptimizedTask> optimizedTaskList;
 
@@ -27,6 +30,7 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
     public OptimizedRecyclerViewAdapter(Context context, List<OptimizedTask> optimizedTasks){
         this.context = context;
         this.optimizedTaskList = optimizedTasks;
+        focusTimer = new FocusTimer(context);
     }
 
     public void updateAdded(int position){
@@ -60,6 +64,13 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
         holder.timeWorkedOn.setText(MessageFormat.format("Time spent on: {0}", (int) optimizedTaskList.get(position).getTimeWorked()));
         holder.timeToWork.setText(MessageFormat.format("Suggested time daily: {0} minutes", optimizedTaskList.get(position).getRecommendedTime()));
 
+        holder.focus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                focusTimer.enableDoNotDisturb();
+            }
+        });
+
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +81,6 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
 
             }
         });
-
 
     }
 
