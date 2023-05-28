@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private MaterialButton loginbtn;
     private MaterialButton signupbtn;
     private DatabaseConnection databaseConnection;
-    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         databaseConnection = new DatabaseConnection();
-        databaseConnection.connectToDatabase();
+        databaseConnection.connectToDatabase(); // Connect to the database
 
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
@@ -59,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
     public void login(String name, String pass) throws SQLException {
         Connection connection = databaseConnection.getConnection();
 
+        if (connection == null) {
+            // Handle connection error
+            Toast.makeText(MainActivity.this, "Failed to connect to the database", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Create a PreparedStatement object with parameter placeholders
         String query = "SELECT * FROM users WHERE username = ? AND password = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -82,9 +87,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Close the result set, statement, and connection
-        resultSet.close();
-        preparedStatement.close();
-        connection.close();
+        try {
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void openDashboardPage() {
