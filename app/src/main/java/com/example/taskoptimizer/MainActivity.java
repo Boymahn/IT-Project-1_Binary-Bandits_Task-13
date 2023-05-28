@@ -37,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, NavBarControl.class);
+                startActivity(intent);
+                finish();
+
+                /*
                 String name = username.getText().toString().trim();
                 String pass = password.getText().toString().trim();
 
@@ -45,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(MainActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
                 }
+                */
             }
         });
 
