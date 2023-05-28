@@ -51,6 +51,13 @@ public class UserMetaData {
     public void setTimeVariable(int timeVariable) {
         this.timeVariable = timeVariable;
     }
+    public String difficultySettingToString(){
+
+        return difficultySetting[0] + " " + difficultySetting[1] + " " + difficultySetting[2];
+    }
+    public String prioritySettingToString(){
+        return prioritySetting[0]+" "+prioritySetting[1] +" "+ prioritySetting[2];
+    }
 
 
 }

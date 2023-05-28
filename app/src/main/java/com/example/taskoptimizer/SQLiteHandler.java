@@ -42,12 +42,15 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 "start_date TEXT, end_date TEXT, priority INTEGER, " +
                 "difficulty INTEGER, status INTEGER, initialTime " +
                 "INTEGER, timeWorked INTEGER, recommendedTime INTEGER)";
-        String CREATE_TABLE = "CREATE TABLE Tasks( id " +
+        String CREATE_TASK_TABLE = "CREATE TABLE Tasks( id " +
                 "INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT," +
                 "start_date TEXT, end_date TEXT, status INTEGER)";
+        String CREATE_META_DATA = "CREATE TABLE Meta(email" +
+                "STRING, priority TEXT, estimatedTime TEXT)";
 
         db.execSQL(CREATE_TABLE_OPTIMIZED_TASKS);
-        db.execSQL(CREATE_TABLE);
+        db.execSQL(CREATE_TASK_TABLE);
+        db.execSQL(CREATE_META_DATA);
 
     }
 
@@ -55,6 +58,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS optimizedTasks");
+        db.execSQL("DROP TABLE IF EXISTS Meta");
         this.onCreate(db);
     }
     public void deleteTask(Task task){
@@ -171,5 +175,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 
     }
+
+
 
 }

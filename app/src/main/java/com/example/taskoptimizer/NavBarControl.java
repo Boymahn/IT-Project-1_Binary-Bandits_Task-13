@@ -86,8 +86,7 @@ public class NavBarControl extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openDialog(){
-        AddTaskDialog dialog = new AddTaskDialog();
+    public void openDialog(){        AddTaskDialog dialog = new AddTaskDialog();
         dialog.show(getSupportFragmentManager(),"Add Task Dialog");
     }
 

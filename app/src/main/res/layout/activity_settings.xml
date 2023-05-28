@@ -1,27 +1,212 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/signuppage">
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".Settings" >
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/settings"
-        android:text="Settings"
-        android:textColor="@color/black"
-        android:textSize="35dp"
-        android:textStyle="bold"
-        android:layout_margin="50dp"
-        android:gravity="center"/>
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/logoutbtn"
-        android:layout_below="@id/settings"
-        android:layout_centerHorizontal="true"
-        android:text="LOG OUT"
-        android:backgroundTint="@color/design_default_color_on_secondary"
-        android:layout_margin="20dp"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</RelativeLayout>
+            <TextView
+                android:id="@+id/opHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:text="@string/optimization_parameters"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/priorityHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/priority"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.475"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/opHeading" />
+
+            <TextView
+                android:id="@+id/lowPriorityHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="28dp"
+                android:text="@string/low"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/opHeading" />
+
+            <TextView
+                android:id="@+id/mediumPriorityHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="84dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/medium"
+                app:layout_constraintStart_toEndOf="@+id/lowPriorityHeading"
+                app:layout_constraintTop_toBottomOf="@+id/priorityHeading" />
+
+            <TextView
+                android:id="@+id/highPriorityHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="@string/high"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.53"
+                app:layout_constraintStart_toEndOf="@+id/mediumPriorityHeading"
+                app:layout_constraintTop_toBottomOf="@+id/opHeading" />
+
+            <NumberPicker
+                android:id="@+id/lowPriorityNumberPicker"
+                android:layout_width="65dp"
+                android:layout_height="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.127"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lowPriorityHeading"
+                app:layout_constraintVertical_bias="0.021" />
+
+            <NumberPicker
+                android:id="@+id/medPriorityNumberPicker"
+                android:layout_width="65dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="175dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.967"
+                app:layout_constraintStart_toEndOf="@+id/lowPriorityNumberPicker"
+                app:layout_constraintTop_toBottomOf="@+id/mediumPriorityHeading"
+                app:layout_constraintVertical_bias="0.021" />
+
+            <NumberPicker
+                android:id="@+id/highPriorityNumberPicker"
+                android:layout_width="65dp"
+                android:layout_height="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.843"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/highPriorityHeading"
+                app:layout_constraintVertical_bias="0.021" />
+
+            <TextView
+                android:id="@+id/estimatedTimeHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/estimated_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/medPriorityNumberPicker" />
+
+            <NumberPicker
+                android:id="@+id/shortEstNumberPicker"
+                android:layout_width="65dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.127"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/easyHeading"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/easyHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/easy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/estimatedTimeHeading" />
+
+            <TextView
+                android:id="@+id/midEstimationHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="84dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/medium"
+                app:layout_constraintStart_toEndOf="@+id/easyHeading"
+                app:layout_constraintTop_toBottomOf="@+id/estimatedTimeHeading" />
+
+            <TextView
+                android:id="@+id/hardEstimationHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="72dp"
+                android:text="@string/hard"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/estimatedTimeHeading" />
+
+            <NumberPicker
+                android:id="@+id/midEstNumberPicker"
+                android:layout_width="65dp"
+                android:layout_height="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/midEstimationHeading"
+                app:layout_constraintVertical_bias="0.044" />
+
+            <NumberPicker
+                android:id="@+id/longEstNumberPicker"
+                android:layout_width="65dp"
+                android:layout_height="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.843"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hardEstimationHeading"
+                app:layout_constraintVertical_bias="0.044" />
+
+            <TextView
+                android:id="@+id/altVariable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="140dp"
+                android:text="@string/alt_variable"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.849"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/midEstNumberPicker" />
+
+            <NumberPicker
+                android:id="@+id/altVariablePicker"
+                android:layout_width="65dp"
+                android:layout_height="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/altVariable"
+                app:layout_constraintVertical_bias="0.063" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,4 +43,13 @@
     <string name="feedback">Feedback</string>
     <string name="about">About</string>
     <string name="faq">FAQ</string>
+    <string name="log_out">LOG OUT</string>
+    <string name="optimization_parameters">Optimization Parameters</string>
+    <string name="low">Low</string>
+    <string name="medium">Medium</string>
+    <string name="high">High</string>
+    <string name="estimated_time">Estimated Time</string>
+    <string name="easy">Easy</string>
+    <string name="hard">Hard</string>
+    <string name="alt_variable">Alt Variable</string>
 </resources>
