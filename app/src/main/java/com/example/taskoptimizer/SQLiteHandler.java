@@ -51,7 +51,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_OPTIMIZED_TASKS);
         db.execSQL(CREATE_TASK_TABLE);
         db.execSQL(CREATE_META_DATA);
-
     }
 
     @Override

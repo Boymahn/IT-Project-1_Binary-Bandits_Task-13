@@ -5,42 +5,50 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.android.material.button.MaterialButton;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.button.MaterialButton;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView username;
     private TextView password;
     private MaterialButton loginbtn;
-    private MaterialButton singupbtn;
+    private MaterialButton signupbtn;
+    private DatabaseConnection databaseConnection;
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        databaseConnection = new DatabaseConnection();
+        databaseConnection.connectToDatabase();
+
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         loginbtn = findViewById(R.id.loginbtn);
-        singupbtn = findViewById(R.id.signupbtn);
+        signupbtn = findViewById(R.id.signupbtn);
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
-                    // Correct credentials
-                    Toast.makeText(MainActivity.this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
-                    // Open another activity after successful login
-                    openDashboardPage();
-                } else {
-                    // Incorrect credentials
-                    Toast.makeText(MainActivity.this, "LOGIN FAILED", Toast.LENGTH_SHORT).show();
+                try {
+                    login(username.getText().toString(), password.getText().toString());
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
         });
 
-        singupbtn.setOnClickListener(new View.OnClickListener() {
+        signupbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openSignUpPage();
@@ -48,10 +56,40 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void login(String name, String pass) throws SQLException {
+        Connection connection = databaseConnection.getConnection();
+
+        // Create a PreparedStatement object with parameter placeholders
+        String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+        // Set the parameter values
+        preparedStatement.setString(1, name);
+        preparedStatement.setString(2, pass);
+
+        // Execute the query
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        // Check if a matching user and password combination exists
+        if (resultSet.next()) {
+            // Correct credentials
+            Toast.makeText(MainActivity.this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
+            // Open another activity after successful login
+            openDashboardPage();
+        } else {
+            // Incorrect credentials
+            Toast.makeText(MainActivity.this, "LOGIN FAILED", Toast.LENGTH_SHORT).show();
+        }
+
+        // Close the result set, statement, and connection
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+    }
+
     private void openDashboardPage() {
         Intent intent = new Intent(MainActivity.this, NavBarControl.class);
         startActivity(intent);
-
     }
 
     private void openSignUpPage() {
