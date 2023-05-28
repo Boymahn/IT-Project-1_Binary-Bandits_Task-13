@@ -67,8 +67,18 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
         holder.focus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                focusTimer.enableDoNotDisturb();
+                if
+                    (focusTimer.isNotificationPolicyAccessGranted()) {
+                    focusTimer.enableDoNotDisturb();
+                    if (focusTimer.isDoNotDisturbEnabled()){
+                        focusTimer.disableDoNotDisturb();
+                    }
+                }
+                else{
+                    focusTimer.requestNotificationPolicyAccess();
+                }
             }
+
         });
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
