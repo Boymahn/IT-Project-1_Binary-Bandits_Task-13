@@ -19,9 +19,9 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText username, password;
     private Button loginButton, signupButton;
-    private static final String DB_HOSTNAME = "taskoptimizer.mysql.database.azure.com";
-    private static final String DB_USERNAME = "myadminuser";
-    private static final String DB_PASSWORD = "BinaryBandits69";
+    private static final String DB_HOSTNAME = "172.20.10.5";
+    private static final String DB_USERNAME = "root";
+    private static final String DB_PASSWORD = "";
     private static final String DB_NAME = "taskoptimizer";
 
     @Override
@@ -37,12 +37,13 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, NavBarControl.class);
                 startActivity(intent);
                 finish();
 
-                /*
+                */
                 String name = username.getText().toString().trim();
                 String pass = password.getText().toString().trim();
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(MainActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
                 }
-                */
+
             }
         });
 
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Create the database connection URL
-            String url="jdbc:mysql://taskoptimizer.mysql.database.azure.com:3306/taskoptimizer?useSSL=true";
+            String url = "jdbc:mysql://" + DB_HOSTNAME + ":3306/" + DB_NAME;
 
             // Create the database connection
             connection = DriverManager.getConnection(url, DB_USERNAME, DB_PASSWORD);
