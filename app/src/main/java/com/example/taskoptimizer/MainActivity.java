@@ -19,9 +19,9 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText username, password;
     private Button loginButton, signupButton;
-    private static final String DB_HOSTNAME = "172.20.10.5";
-    private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "";
+    private static final String DB_HOSTNAME = "taskoptimizer.mysql.database.azure.com";
+    private static final String DB_USERNAME = "myadminuser";
+    private static final String DB_PASSWORD = "BinaryBandits69";
     private static final String DB_NAME = "taskoptimizer";
 
     @Override
@@ -72,13 +72,22 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             // Load the MySQL Connector/J driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            // Create the database connection URL
+            Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://" + DB_HOSTNAME + ":3306/" + DB_NAME;
+            // Create the database connection URL
+            //String url = "jdbc:mysql://" + DB_HOSTNAME + ":3306/" + DB_NAME;
 
             // Create the database connection
-            connection = DriverManager.getConnection(url, DB_USERNAME, DB_PASSWORD);
+            //connection = DriverManager.getConnection(url, DB_USERNAME, DB_PASSWORD);
+            connection = DriverManager.getConnection("jdbc:sqlserver://taskopt.database.windows.net:1433;" +
+                    "database=Test;" +
+                    "user=adminuser@taskopt;" +
+                    "password=BinaryBandits69" +
+                    ";" +
+                    "encrypt=true;" +
+                    "trustServerCertificate=false;" +
+                    "hostNameInCertificate=*.database.windows.net;" +
+                    "loginTimeout=30;");
             Toast.makeText(MainActivity.this, "here3", Toast.LENGTH_SHORT).show();
 
             // does not reach here
@@ -112,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+
         } finally {
             // Close the result set, statement, and connection
             try {
