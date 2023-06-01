@@ -5,6 +5,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.os.Bundle;
@@ -66,6 +68,8 @@ public class NavBarControl extends AppCompatActivity {
     }
 
     private void openSettings() {
+        Intent intent = new Intent(NavBarControl.this, Settings.class);
+        startActivity(intent);
     }
 
     private void openChatBox() {
