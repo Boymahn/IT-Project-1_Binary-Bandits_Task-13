@@ -1,6 +1,7 @@
 package com.example.taskoptimizer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
@@ -66,8 +67,8 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
 
         holder.focus.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if
+           public void onClick(View v) {
+                /**if
                     (focusTimer.isNotificationPolicyAccessGranted()) {
                     focusTimer.enableDoNotDisturb();
                     if (focusTimer.isDoNotDisturbEnabled()){
@@ -76,8 +77,13 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
                 }
                 else{
                     focusTimer.requestNotificationPolicyAccess();
-                }
+                }**/
+
+                CountdownNotification countdownNotification = new CountdownNotification(context);
+                countdownNotification.showCountdownNotification(30); // Pass the remaining minutes as an argument
+                focusTimer.startFocusTimer(10000);
             }
+
 
         });
 
