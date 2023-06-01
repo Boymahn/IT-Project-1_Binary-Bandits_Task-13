@@ -14,14 +14,23 @@
         android:layout_margin="50dp"
         android:gravity="center"/>
 
+    <Switch
+        android:id="@+id/themeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/settings"
+        android:layout_centerHorizontal="true"
+        android:text="Dark Theme"
+        android:layout_marginTop="20dp"/>
+
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/logoutbtn"
-        android:layout_below="@id/settings"
+        android:layout_below="@id/themeSwitch"
         android:layout_centerHorizontal="true"
         android:text="LOG OUT"
         android:backgroundTint="@color/design_default_color_on_secondary"
-        android:layout_margin="20dp"/>
+        android:layout_marginTop="20dp"/>
 
 </RelativeLayout>
