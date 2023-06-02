@@ -45,8 +45,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         String CREATE_TASK_TABLE = "CREATE TABLE Tasks( id " +
                 "INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT," +
                 "start_date TEXT, end_date TEXT, status INTEGER)";
-        String CREATE_META_DATA = "CREATE TABLE Meta(email" +
-                "STRING, priority TEXT, estimatedTime TEXT)";
+        String CREATE_META_DATA = "CREATE TABLE Meta(email " +
+                "TEXT, priority TEXT, estimatedTime TEXT,altVariable TEXT)";
 
         db.execSQL(CREATE_TABLE_OPTIMIZED_TASKS);
         db.execSQL(CREATE_TASK_TABLE);
