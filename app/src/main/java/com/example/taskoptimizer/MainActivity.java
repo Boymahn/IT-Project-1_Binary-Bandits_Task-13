@@ -1,13 +1,18 @@
 package com.example.taskoptimizer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,6 +22,8 @@ import java.sql.Statement;
 
 public class MainActivity extends AppCompatActivity {
 
+    boolean nightMode;
+    SharedPreferences sharedPreferences;
     private EditText username, password;
     private Button loginButton, signupButton;
     private static final String DB_HOSTNAME = "taskoptimizer.mysql.database.azure.com";
@@ -27,6 +34,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Check the theme preference
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        nightMode = sharedPreferences.getBoolean("night", false);
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
+        // Set the layout based on the theme
         setContentView(R.layout.activity_main);
 
         username = findViewById(R.id.username);
