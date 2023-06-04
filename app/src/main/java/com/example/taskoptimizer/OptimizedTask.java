@@ -23,60 +23,7 @@ public class OptimizedTask {
 
     private String description;
 
-    public void setInitialTime(long initialTime) {
-        this.initialTime = initialTime;
-    }
-
-    public long getLowPriority() {
-        return lowPriority;
-    }
-
-    public void setLowPriority(long lowPriority) {
-        this.lowPriority = lowPriority;
-    }
-
-    public long getMidPriority() {
-        return midPriority;
-    }
-
-    public void setMidPriority(long midPriority) {
-        this.midPriority = midPriority;
-    }
-
-    public long getHighPriority() {
-        return highPriority;
-    }
-
-    public void setHighPriority(long highPriority) {
-        this.highPriority = highPriority;
-    }
-
-    public long getLowEstimated() {
-        return lowEstimated;
-    }
-
-    public void setLowEstimated(long lowEstimated) {
-        this.lowEstimated = lowEstimated;
-    }
-
-    public long getMidEstimated() {
-        return midEstimated;
-    }
-
-    public void setMidEstimated(long midEstimated) {
-        this.midEstimated = midEstimated;
-    }
-
-    public long getHighEstimated() {
-        return highEstimated;
-    }
-
-    public void setHighEstimated(long highEstimated) {
-        this.highEstimated = highEstimated;
-    }
-
-    private long lowPriority,midPriority, highPriority, lowEstimated,midEstimated, highEstimated;
-
+    private int lowPriority,midPriority, highPriority, lowEstimated,midEstimated, highEstimated, altVariable;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -215,7 +162,6 @@ public class OptimizedTask {
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void setInitialTime(){
-        String[] startDateString = start.split("\\s+");
 
         String[] endDateString = end.split("\\s+");
         int endMonth = monthFormat(end);
@@ -282,31 +228,31 @@ public class OptimizedTask {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void calcRecommendedTime(int difficulty, int priority){
-        long difficultyTime, priorityTime;
+    public void calcRecommendedTime(int estimatedTime, int priority){
+        int difficultyTime, priorityTime;
 
-        switch (difficulty){
+        switch (estimatedTime){
             case 1:
-                difficultyTime = getLowEstimated();
+                difficultyTime = lowEstimated;
                 break;
             case 2:
-                difficultyTime = getMidEstimated();
+                difficultyTime = midEstimated;
                 break;
             case 3:
-                difficultyTime = getHighEstimated();
+                difficultyTime = highEstimated;
                 break;
             default:
                 difficultyTime = 20;
         }
         switch (priority){
             case 1:
-                priorityTime = getLowPriority();
+                priorityTime = lowPriority;
                 break;
             case 2:
-                priorityTime = getMidPriority();
+                priorityTime = midPriority;
                 break;
             case 3:
-                priorityTime = getHighPriority();
+                priorityTime =highPriority;
                 break;
             default:
                 priorityTime = 10;
@@ -339,4 +285,59 @@ public class OptimizedTask {
         this.timeWorked += timeWorked;
     }
 
+    public int getLowPriority() {
+        return lowPriority;
+    }
+
+    public void setLowPriority(int lowPriority) {
+        this.lowPriority = lowPriority;
+    }
+
+    public int getMidPriority() {
+        return midPriority;
+    }
+
+    public void setMidPriority(int midPriority) {
+        this.midPriority = midPriority;
+    }
+
+    public int getHighPriority() {
+        return highPriority;
+    }
+
+    public void setHighPriority(int highPriority) {
+        this.highPriority = highPriority;
+    }
+
+    public int getLowEstimated() {
+        return lowEstimated;
+    }
+
+    public void setLowEstimated(int lowEstimated) {
+        this.lowEstimated = lowEstimated;
+    }
+
+    public int getMidEstimated() {
+        return midEstimated;
+    }
+
+    public void setMidEstimated(int midEstimated) {
+        this.midEstimated = midEstimated;
+    }
+
+    public int getHighEstimated() {
+        return highEstimated;
+    }
+
+    public void setHighEstimated(int highEstimated) {
+        this.highEstimated = highEstimated;
+    }
+
+    public int getAltVariable() {
+        return altVariable;
+    }
+
+    public void setAltVariable(int altVariable) {
+        this.altVariable = altVariable;
+    }
 }

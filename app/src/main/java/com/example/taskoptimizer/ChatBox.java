@@ -10,5 +10,7 @@ public class ChatBox extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_box);
+        getSupportActionBar().setTitle("ChatBox");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

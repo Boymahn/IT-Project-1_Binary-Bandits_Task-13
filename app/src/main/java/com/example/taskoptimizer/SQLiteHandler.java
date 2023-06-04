@@ -42,30 +42,29 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 "start_date TEXT, end_date TEXT, priority INTEGER, " +
                 "difficulty INTEGER, status INTEGER, initialTime " +
                 "INTEGER, timeWorked INTEGER, recommendedTime INTEGER)";
-        String CREATE_TABLE = "CREATE TABLE Tasks( id " +
+        String CREATE_TASK_TABLE = "CREATE TABLE Tasks( id " +
                 "INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT," +
                 "start_date TEXT, end_date TEXT, status INTEGER)";
+        String CREATE_META_DATA = "CREATE TABLE Meta(email" +
+                "STRING, priority TEXT, estimatedTime TEXT)";
 
         db.execSQL(CREATE_TABLE_OPTIMIZED_TASKS);
-        db.execSQL(CREATE_TABLE);
-
+        db.execSQL(CREATE_TASK_TABLE);
+        db.execSQL(CREATE_META_DATA);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS optimizedTasks");
+        db.execSQL("DROP TABLE IF EXISTS Meta");
         this.onCreate(db);
     }
-    public void deleteTask(OptimizedTask optimizedTask){
+    public void deleteTask(Task task){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, "id = ?",new String[] {String.valueOf(optimizedTask.getId())});
+        db.delete(TABLE_NAME, "id = ?",new String[] {String.valueOf(task.getId())});
     }
-    /*public Task getTasks(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = new String[] {"description", "start", "end", "priority"};
-        Cursor cursor = db.query(TABLE_NAME,columns,null,null,null,null,null );
-    }*/
+
     public List<OptimizedTask> allTasks(){
         List<OptimizedTask> optimizedTasks = new LinkedList<OptimizedTask>();
 
@@ -175,5 +174,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 
     }
+
+
 
 }
