@@ -1,21 +1,30 @@
 package com.example.taskoptimizer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
+
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
+import com.google.android.material.button.MaterialButton;
 
 public class Settings extends AppCompatActivity implements NumberPicker.OnValueChangeListener{
     NumberPicker lowPriPicker, medPriPicker, highPriPicker, shortEstPicker, midEstPicker, longEstPicker, altVariable;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set the layout based on the theme
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setTitle("Settings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -54,7 +63,18 @@ public class Settings extends AppCompatActivity implements NumberPicker.OnValueC
         longEstPicker.setOnValueChangedListener(this);
         altVariable.setOnValueChangedListener(this);
 
+        /*
 
+
+
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openNavPage();
+            }
+        });
+
+         */
     }
 
     @Override
@@ -78,9 +98,4 @@ public class Settings extends AppCompatActivity implements NumberPicker.OnValueC
 
         }
     }
-    /**
-    private void openLoginPage() {
-        Intent intent = new Intent(Settings.this, MainActivity.class);
-        startActivity(intent);
-    }**/
 }

@@ -68,7 +68,8 @@
         android:layout_centerHorizontal="true"
         android:text="SIGN UP"
         android:backgroundTint="@color/design_default_color_on_secondary"
-        android:layout_margin="20dp"/>
+        android:layout_margin="20dp"
+        style="@style/BUTTON"/>
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
@@ -78,6 +79,7 @@
         android:layout_centerHorizontal="true"
         android:text="BACK"
         android:backgroundTint="@color/design_default_color_on_secondary"
-        android:layout_margin="20dp"/>
+        android:layout_margin="20dp"
+        style="@style/BUTTON"/>
 
 </RelativeLayout>

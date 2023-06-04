@@ -4,7 +4,8 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".Settings" >
+tools:context=".Settings"
+style="@style/SCREEN">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,7 +30,8 @@ tools:context=".Settings" >
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" 
+                style="@style/TEXT"/>
 
             <TextView
                 android:id="@+id/priorityHeading"
@@ -40,7 +42,8 @@ tools:context=".Settings" >
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.475"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/opHeading" />
+                app:layout_constraintTop_toBottomOf="@+id/opHeading" 
+                style="@style/TEXT"/>
 
             <TextView
                 android:id="@+id/lowPriorityHeading"
@@ -50,7 +53,8 @@ tools:context=".Settings" >
                 android:layout_marginTop="28dp"
                 android:text="@string/low"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/opHeading" />
+                app:layout_constraintTop_toBottomOf="@+id/opHeading" 
+                style="@style/TEXT"/>
 
             <TextView
                 android:id="@+id/mediumPriorityHeading"
@@ -60,7 +64,8 @@ tools:context=".Settings" >
                 android:layout_marginTop="4dp"
                 android:text="@string/medium"
                 app:layout_constraintStart_toEndOf="@+id/lowPriorityHeading"
-                app:layout_constraintTop_toBottomOf="@+id/priorityHeading" />
+                app:layout_constraintTop_toBottomOf="@+id/priorityHeading" 
+                style="@style/TEXT"/>
 
             <TextView
                 android:id="@+id/highPriorityHeading"
@@ -71,7 +76,8 @@ tools:context=".Settings" >
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.53"
                 app:layout_constraintStart_toEndOf="@+id/mediumPriorityHeading"
-                app:layout_constraintTop_toBottomOf="@+id/opHeading" />
+                app:layout_constraintTop_toBottomOf="@+id/opHeading" 
+                style="@style/TEXT"/>
 
             <NumberPicker
                 android:id="@+id/lowPriorityNumberPicker"
@@ -116,7 +122,8 @@ tools:context=".Settings" >
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/medPriorityNumberPicker" />
+                app:layout_constraintTop_toBottomOf="@+id/medPriorityNumberPicker" 
+                style="@style/TEXT"/>
 
             <NumberPicker
                 android:id="@+id/shortEstNumberPicker"
@@ -138,7 +145,8 @@ tools:context=".Settings" >
                 android:layout_marginTop="5dp"
                 android:text="@string/easy"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/estimatedTimeHeading" />
+                app:layout_constraintTop_toBottomOf="@+id/estimatedTimeHeading" 
+                style="@style/TEXT"/>
 
             <TextView
                 android:id="@+id/midEstimationHeading"
@@ -148,7 +156,8 @@ tools:context=".Settings" >
                 android:layout_marginTop="4dp"
                 android:text="@string/medium"
                 app:layout_constraintStart_toEndOf="@+id/easyHeading"
-                app:layout_constraintTop_toBottomOf="@+id/estimatedTimeHeading" />
+                app:layout_constraintTop_toBottomOf="@+id/estimatedTimeHeading" 
+                style="@style/TEXT"/>
 
             <TextView
                 android:id="@+id/hardEstimationHeading"
@@ -158,7 +167,8 @@ tools:context=".Settings" >
                 android:layout_marginEnd="72dp"
                 android:text="@string/hard"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/estimatedTimeHeading" />
+                app:layout_constraintTop_toBottomOf="@+id/estimatedTimeHeading" 
+                style="@style/TEXT"/>
 
             <NumberPicker
                 android:id="@+id/midEstNumberPicker"
@@ -192,7 +202,8 @@ tools:context=".Settings" >
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.849"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/midEstNumberPicker" />
+                app:layout_constraintTop_toBottomOf="@+id/midEstNumberPicker" 
+                style="@style/TEXT"/>
 
             <NumberPicker
                 android:id="@+id/altVariablePicker"
