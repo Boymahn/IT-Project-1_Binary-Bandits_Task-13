@@ -55,21 +55,27 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+
+                SQLiteHandler db = new SQLiteHandler(getApplicationContext());
+
+
+
+               /* Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, NavBarControl.class);
                 startActivity(intent);
+
                 finish();
-
                 */
-                String name = username.getText().toString().trim();
-                String pass = password.getText().toString().trim();
 
-                if (!name.isEmpty() && !pass.isEmpty()) {
-                    //login(name, pass);
-                } else {
-                    Toast.makeText(MainActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
-                }
+
+                 String name = username.getText().toString().trim();
+                 String pass = password.getText().toString().trim();
+
+                 if (!name.isEmpty() && !pass.isEmpty()) {
+                 login(name, pass);
+                 } else {
+                 Toast.makeText(MainActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
+                 }
 
             }
         });
@@ -77,21 +83,21 @@ public class MainActivity extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NavBarControl.class);
+                Intent intent = new Intent(MainActivity.this, SignUp.class);
                 startActivity(intent);
             }
         });
     }
 
-   /** private void login(String u, String p) {
+    private void login(String u, String p) {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
 
         try {
             // Load the MySQL Connector/J driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //String url = "jdbc:mysql://" + DB_HOSTNAME + ":3306/" + DB_NAME;
+            Class.forName("com.mysql.jdbc.Driver");
+            String url = "jdbc:mysql://" + DB_HOSTNAME + ":3306/" + DB_NAME;
             // Create the database connection URL
             //String url = "jdbc:mysql://" + DB_HOSTNAME + ":3306/" + DB_NAME;
 
@@ -106,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
                     "trustServerCertificate=false;" +
                     "hostNameInCertificate=*.database.windows.net;" +
                     "loginTimeout=30;");
-
             Toast.makeText(MainActivity.this, "here3", Toast.LENGTH_SHORT).show();
 
             // does not reach here
@@ -157,5 +162,5 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-    }**/
+    }
 }
