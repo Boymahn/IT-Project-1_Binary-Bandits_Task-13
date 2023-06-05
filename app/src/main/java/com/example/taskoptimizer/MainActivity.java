@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             // Load the MySQL Connector/J driver
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://" + DB_HOSTNAME + ":3306/" + DB_NAME;
             // Create the database connection URL
             //String url = "jdbc:mysql://" + DB_HOSTNAME + ":3306/" + DB_NAME;
