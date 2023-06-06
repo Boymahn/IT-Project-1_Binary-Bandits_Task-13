@@ -67,25 +67,17 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
 
         holder.focus.setOnClickListener(new View.OnClickListener() {
             @Override
-           public void onClick(View v) {
+            public void onClick(View v) {
                 if (focusTimer.isNotificationPolicyAccessGranted() && focusTimer.areNotificationsEnabled()) {
                     focusTimer.enableDoNotDisturb();
-                    focusTimer.openAppSettings();
-                    if (focusTimer.isDoNotDisturbEnabled()){
+                    if (focusTimer.isDoNotDisturbEnabled()) {
                         focusTimer.disableDoNotDisturb();
                     }
-                }
-                else{
+                    focusTimer.startfocustimer(10000);
+                } else {
                     focusTimer.requestNotificationPolicyAccess();
-
                 }
-                /* CountdownNotification countdownNotification = new CountdownNotification(context);
-                countdownNotification.showCountdownNotification(30); // Pass the remaining minutes as an argument
-                focusTimer.startFocusTimer(10000); */
-                focusTimer.startfocustimer(10000);
             }
-
-
         });
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +119,5 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
             completed_checkbox = itemView.findViewById(R.id.completed_checkBox);
 
         }
-
-
     }
 }

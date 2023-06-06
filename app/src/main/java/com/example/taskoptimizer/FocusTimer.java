@@ -169,30 +169,30 @@ public class FocusTimer {
         return true;
     }
 
-   /** public void startfocustimer(long focusTimeInMillis) {
-        this.focusTimeInMillis = focusTimeInMillis;
-        if (isNotificationPolicyAccessGranted()) {
-            enableDoNotDisturb();
-        } else {
-            requestNotificationPolicyAccess();
-        }
-
-        timer = new CountDownTimer(focusTimeInMillis, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                // Timer is ticking (1 second interval)
-                long minutesLeft = millisUntilFinished / (60 * 1000);
-                // Update UI or perform actions for each tick
-            }
-
-            @Override
-            public void onFinish() {
-                // Timer finished
-                disableDoNotDisturb();
-                // Perform actions after the focus time is over
-            }
-        }.start();
-    }**/
+    /**
+     * public void startfocustimer(long focusTimeInMillis) {
+     * this.focusTimeInMillis = focusTimeInMillis;
+     * if (isNotificationPolicyAccessGranted()) {
+     * enableDoNotDisturb();
+     * } else {
+     * requestNotificationPolicyAccess();
+     * }
+     * <p>
+     * timer = new CountDownTimer(focusTimeInMillis, 1000) {
+     *
+     * @Override public void onTick(long millisUntilFinished) {
+     * // Timer is ticking (1 second interval)
+     * long minutesLeft = millisUntilFinished / (60 * 1000);
+     * // Update UI or perform actions for each tick
+     * }
+     * @Override public void onFinish() {
+     * // Timer finished
+     * disableDoNotDisturb();
+     * // Perform actions after the focus time is over
+     * }
+     * }.start();
+     * }
+     **/
 
     public void stopFocusTimer() {
         if (timer != null) {
@@ -235,6 +235,8 @@ public class FocusTimer {
     }
 
     public void startfocustimer(long focusTimeInMillis) {
+        stopFocusTimer(); // Stop the previous timer, if any
+
         this.focusTimeInMillis = focusTimeInMillis;
         countdownNotification = new CountdownNotification(context);
 
