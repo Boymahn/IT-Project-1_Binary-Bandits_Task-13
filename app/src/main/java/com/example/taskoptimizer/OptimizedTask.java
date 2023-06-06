@@ -1,5 +1,6 @@
 package com.example.taskoptimizer;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
@@ -288,8 +289,8 @@ public class OptimizedTask {
     public int getLowPriority() {
         return lowPriority;
     }
-
     public void setLowPriority(int lowPriority) {
+
         this.lowPriority = lowPriority;
     }
 
@@ -339,5 +340,11 @@ public class OptimizedTask {
 
     public void setAltVariable(int altVariable) {
         this.altVariable = altVariable;
+    }
+
+    private void setPriorityVars(SQLiteDatabase db){
+
+
+
     }
 }

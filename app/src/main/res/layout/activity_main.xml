@@ -7,15 +7,18 @@
     android:id="@+id/login">
 
     <TextView
+        android:id="@+id/signin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/signin"
-        android:text="Login"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:text="@string/login"
         android:textColor="@color/white"
         android:textSize="35sp"
-        android:textStyle="bold"
-        android:layout_margin="50dp"
-        android:gravity="center"/>
+        android:textStyle="bold" />
 
     <EditText
         android:layout_width="match_parent"
@@ -31,7 +34,8 @@
         android:drawableStart="@drawable/baseline_person_24"
         android:drawablePadding="20dp"
         android:autofillHints=""
-        android:inputType="" />
+        android:inputType=""
+        tools:ignore="VisualLintTextFieldSize" />
 
     <EditText
         android:layout_width="match_parent"
@@ -47,28 +51,52 @@
         android:drawableStart="@drawable/baseline_password_24"
         android:drawablePadding="20dp"
         android:inputType="textPassword"
-        android:autofillHints="" />
+        android:autofillHints=""
+        tools:ignore="VisualLintTextFieldSize" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/loginbtn"
+        style="@style/BUTTON"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/loginbtn"
         android:layout_below="@id/password"
         android:layout_centerHorizontal="true"
-        android:text="LOGIN"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/design_default_color_on_secondary"
-        android:layout_margin="20dp"
-        style="@style/BUTTON"/>
+        android:text="@string/login"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/signupbtn"
+        style="@style/BUTTON"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/signupbtn"
         android:layout_below="@id/loginbtn"
         android:layout_centerHorizontal="true"
-        android:text="SIGN UP"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
         android:backgroundTint="@color/design_default_color_on_secondary"
-        android:layout_margin="5dp"
-        style="@style/BUTTON"/>
+        android:text="@string/sign_up" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/skip_btn"
+        style="@style/BUTTON"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="665dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="18dp"
+        android:backgroundTint="@color/design_default_color_on_secondary"
+        android:text="SKIP"
+        tools:ignore="HardcodedText" />
 
 </RelativeLayout>
