@@ -236,11 +236,13 @@ public class FocusTimer {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                     notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALARMS);
                 } else {
+                    notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE);
                     notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_PRIORITY);
                 }
             }
         }
     }
+
 
     public void disableDoNotDisturb() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isDoNotDisturbEnabled()) {
