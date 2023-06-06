@@ -129,9 +129,12 @@ public class FocusTimer {
 
 package com.example.taskoptimizer;
 
+
+
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -140,8 +143,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.provider.Settings;
+import android.service.notification.NotificationListenerService;
 
-public class FocusTimer {
+public class FocusTimer extends NotificationListenerService {
     private Context context;
     private CountDownTimer timer;
     private long focusTimeInMillis;
@@ -165,12 +169,14 @@ public class FocusTimer {
                     // Notification policy access granted, start the focus timer
                     enableDoNotDisturb();
                     startFocusTimer();
+
                 }
             }
         };
 
         IntentFilter filter = new IntentFilter(NotificationManager.ACTION_NOTIFICATION_POLICY_ACCESS_GRANTED_CHANGED);
         context.registerReceiver(notificationPolicyAccessReceiver, filter);
+
     }
 
     private void cleanupNotificationPolicyAccessReceiver() {
@@ -181,14 +187,13 @@ public class FocusTimer {
     }
 
     public boolean isNotificationPolicyAccessGranted() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null) {
-                return notificationManager.isNotificationPolicyAccessGranted();
-            }
-        }
-        return false;
+        //NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+       NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+
+        return notificationManager.isNotificationPolicyAccessGranted();
     }
+
+
 
     public void requestNotificationPolicyAccess() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -230,7 +235,7 @@ public class FocusTimer {
     }
 
     public void enableDoNotDisturb() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !isDoNotDisturbEnabled()) {
+        if (!isDoNotDisturbEnabled()) {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -245,7 +250,7 @@ public class FocusTimer {
 
 
     public void disableDoNotDisturb() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isDoNotDisturbEnabled()) {
+        if (isDoNotDisturbEnabled()) {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
@@ -254,12 +259,10 @@ public class FocusTimer {
     }
 
     public boolean isDoNotDisturbEnabled() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null) {
-                return notificationManager.isNotificationPolicyAccessGranted() &&
-                        notificationManager.getCurrentInterruptionFilter() != NotificationManager.INTERRUPTION_FILTER_ALL;
-            }
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            return notificationManager.isNotificationPolicyAccessGranted() &&
+                    notificationManager.getCurrentInterruptionFilter() != NotificationManager.INTERRUPTION_FILTER_ALL;
         }
         return false;
     }
@@ -309,4 +312,15 @@ public class FocusTimer {
         cleanupNotificationPolicyAccessReceiver();
         stopFocusTimer();
     }
+
+    public boolean hasDndAccess() {
+        NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+        return notificationManager.isNotificationPolicyAccessGranted();
+    }
+
+    public void requestDndAccess() {
+        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+        context.startActivity(intent);
+    }
+
 }

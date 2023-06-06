@@ -31,7 +31,7 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
     public OptimizedRecyclerViewAdapter(Context context, List<OptimizedTask> optimizedTasks){
         this.context = context;
         this.optimizedTaskList = optimizedTasks;
-        focusTimer = new FocusTimer(context);
+        focusTimer = new FocusTimer(this.context);
     }
 
     public void updateAdded(int position){
@@ -68,14 +68,23 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
         holder.focus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (focusTimer.isNotificationPolicyAccessGranted()) {
-                    if (!focusTimer.isDoNotDisturbEnabled()) {
-                        focusTimer.enableDoNotDisturb();
+                if(focusTimer.hasDndAccess()){
+                    if(focusTimer.isNotificationPolicyAccessGranted()) {
+                        if(focusTimer.isDoNotDisturbEnabled()){
+                            focusTimer.disableDoNotDisturb();
+                            focusTimer.stopFocusTimer();
+                        }else{
+                            focusTimer.enableDoNotDisturb();
+                            focusTimer.startFocusTimer();
+                        }
+                    }else{
+                        focusTimer.requestNotificationPolicyAccess();
                     }
-                    focusTimer.startFocusTimer();
-                } else {
-                    focusTimer.requestNotificationPolicyAccess();
+                }else{
+                    focusTimer.requestDndAccess();
                 }
+
+
             }
         });
 

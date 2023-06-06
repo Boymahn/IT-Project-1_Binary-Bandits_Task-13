@@ -1,5 +1,6 @@
 package com.example.taskoptimizer;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 
@@ -35,6 +36,7 @@ public class OptimizedTask {
         this.priority = priority;
         this.difficulty = difficulty;
         this.status = status;
+
     }
 
     public String getDescription() {
@@ -343,8 +345,9 @@ public class OptimizedTask {
     }
 
     private void setPriorityVars(SQLiteDatabase db){
+        Cursor cursor = db.rawQuery("SELECT priorityVar FROM UserMeta",null);
+        if(cursor.moveToFirst()){
 
-
-
+        }
     }
 }
