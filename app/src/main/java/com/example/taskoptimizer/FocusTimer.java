@@ -147,7 +147,7 @@ public class FocusTimer {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
-                return notificationManager.areNotificationsEnabled();
+                return notificationManager.getImportance() != NotificationManager.IMPORTANCE_NONE;
             }
         }
         return true;
