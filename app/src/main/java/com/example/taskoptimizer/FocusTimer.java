@@ -263,28 +263,45 @@ public class FocusTimer {
     }
 
     public void startFocusTimer() {
-        if (isNotificationPolicyAccessGranted() && areNotificationsEnabled()) {
-            stopFocusTimer(); // Stop the previous timer, if any
+        if (isNotificationPolicyAccessGranted()) {
+            if (areNotificationsEnabled()) {
+                stopFocusTimer(); // Stop the previous timer, if any
 
-            countdownNotification = new CountdownNotification(context);
+                countdownNotification = new CountdownNotification(context);
 
-            timer = new CountDownTimer(focusTimeInMillis, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    long minutesLeft = millisUntilFinished / (60 * 1000);
-                    countdownNotification.showCountdownNotification(minutesLeft);
-                }
+                timer = new CountDownTimer(focusTimeInMillis, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        long minutesLeft = millisUntilFinished / (60 * 1000);
+                        countdownNotification.showCountdownNotification(minutesLeft);
+                    }
 
-                @Override
-                public void onFinish() {
-                    countdownNotification.cancelNotification();
-                    // Perform actions after the focus time is over
-                }
-            }.start();
+                    @Override
+                    public void onFinish() {
+                        countdownNotification.cancelNotification();
+                        // Perform actions after the focus time is over
+                    }
+                }.start();
+            } else {
+                // Notifications are not enabled, show an alert to the user
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Notifications Disabled");
+                builder.setMessage("Please enable notifications for this app to receive alerts even when 'Do Not Disturb' is enabled.");
+                builder.setPositiveButton("Open Settings", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        openAppSettings();
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                builder.show();
+            }
         } else {
+            // Notification policy access not granted, request it
             requestNotificationPolicyAccess();
         }
     }
+
 
     public void cleanup() {
         cleanupNotificationPolicyAccessReceiver();
