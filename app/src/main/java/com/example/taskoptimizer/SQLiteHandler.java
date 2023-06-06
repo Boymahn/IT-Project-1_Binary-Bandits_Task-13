@@ -3,6 +3,7 @@ package com.example.taskoptimizer;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
@@ -38,15 +39,18 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE_OPTIMIZED_TASKS = "CREATE TABLE optimizedTasks( id " +
-                "INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT," +
+                "INTEGER PRIMARY KEY AUTOINCREMENT,userId INTEGER, description TEXT," +
                 "start_date TEXT, end_date TEXT, priority INTEGER, " +
                 "difficulty INTEGER, status INTEGER, initialTime " +
-                "INTEGER, timeWorked INTEGER, recommendedTime INTEGER)";
+                "INTEGER, timeWorked INTEGER, recommendedTime INTEGER," +
+                "FOREIGN KEY (userId) REFERENCES UserMeta(id))";
         String CREATE_TASK_TABLE = "CREATE TABLE Tasks( id " +
-                "INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT," +
-                "start_date TEXT, end_date TEXT, status INTEGER)";
-        String CREATE_META_DATA = "CREATE TABLE Meta(email" +
-                "STRING, priority TEXT, estimatedTime TEXT)";
+                "INTEGER PRIMARY KEY AUTOINCREMENT,userId INTEGER, description TEXT," +
+                "start_date TEXT, end_date TEXT, status INTEGER," +
+                "FOREIGN KEY (userId) REFERENCES UserMeta(id))";
+        String CREATE_META_DATA = "CREATE TABLE UserMeta(id INTEGER PRIMARY KEY AUTOINCREMENT, email " +
+                "TEXT DEFAULT 'default',password TEXT DEFAULT 'default', priorityVar TEXT DEFAULT '30 60 90'," +
+                " estimatedTimeVar TEXT DEFAULT '30 60 120', altVar INTEGER DEFAULT 30)";
 
         db.execSQL(CREATE_TABLE_OPTIMIZED_TASKS);
         db.execSQL(CREATE_TASK_TABLE);
@@ -172,9 +176,36 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         db.execSQL("DELETE FROM optimizedTasks WHERE id = "+id);
 
-
     }
 
+    public void createDefault(){
+        String getDefault = "SELECT COUNT(*) FROM UserMeta";
 
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(getDefault,null);
+
+        if(cursor.moveToFirst()){
+
+            int count = cursor.getInt(0);
+
+            if(count == 0){
+                db.close();
+                SQLiteDatabase db1 = this.getWritableDatabase();
+                ContentValues values = new ContentValues();
+
+                values.put("email", "default");
+                values.put("password","default");
+                values.put("priorityVar","30 60 90");
+                values.put("estimatedTimeVar", "30 60 120");
+                values.put("altVar", 30);
+                db1.insert("UserMeta",null,values);
+                db1.close();
+            }
+
+            cursor.close();
+            db.close();
+        }
+
+    }
 
 }
