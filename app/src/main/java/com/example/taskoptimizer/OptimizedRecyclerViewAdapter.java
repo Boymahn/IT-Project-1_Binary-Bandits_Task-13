@@ -77,7 +77,7 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
                          focusTimer.enableDoNotDisturb();
                         }
                     }
-                    focusTimer.startfocustimer(10000);
+                    focusTimer.startFocusTimer();
                 } else {
                     focusTimer.requestNotificationPolicyAccess();
                 }
