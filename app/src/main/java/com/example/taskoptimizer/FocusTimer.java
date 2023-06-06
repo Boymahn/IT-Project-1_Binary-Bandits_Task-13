@@ -1,4 +1,4 @@
-/* package com.example.taskoptimizer;
+/** package com.example.taskoptimizer;
 
 import android.app.NotificationManager;
 import android.content.ComponentName;
@@ -100,14 +100,12 @@ public class FocusTimer {
         }
         return false;
     }
-} */
+} **/
 
 package com.example.taskoptimizer;
 
 import android.app.AlertDialog;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -122,6 +120,8 @@ public class FocusTimer {
     private long focusTimeInMillis;
 
     private String channelId = "countdown_channel";
+
+    private CountdownNotification countdownNotification;
 
     public FocusTimer(Context context) {
         this.context = context;
@@ -169,7 +169,7 @@ public class FocusTimer {
         return true;
     }
 
-    public void startFocusTimer(long focusTimeInMillis) {
+   /** public void startfocustimer(long focusTimeInMillis) {
         this.focusTimeInMillis = focusTimeInMillis;
         if (isNotificationPolicyAccessGranted()) {
             enableDoNotDisturb();
@@ -192,7 +192,7 @@ public class FocusTimer {
                 // Perform actions after the focus time is over
             }
         }.start();
-    }
+    }**/
 
     public void stopFocusTimer() {
         if (timer != null) {
@@ -232,5 +232,24 @@ public class FocusTimer {
             }
         }
         return false;
+    }
+
+    public void startfocustimer(long focusTimeInMillis) {
+        this.focusTimeInMillis = focusTimeInMillis;
+        countdownNotification = new CountdownNotification(context);
+
+        timer = new CountDownTimer(focusTimeInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long minutesLeft = millisUntilFinished / (60 * 1000);
+                countdownNotification.showCountdownNotification(minutesLeft);
+            }
+
+            @Override
+            public void onFinish() {
+                countdownNotification.cancelNotification();
+                // Perform actions after the focus time is over
+            }
+        }.start();
     }
 }

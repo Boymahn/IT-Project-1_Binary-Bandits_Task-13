@@ -79,9 +79,10 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
                     focusTimer.requestNotificationPolicyAccess();
 
                 }
-                CountdownNotification countdownNotification = new CountdownNotification(context);
+                /* CountdownNotification countdownNotification = new CountdownNotification(context);
                 countdownNotification.showCountdownNotification(30); // Pass the remaining minutes as an argument
-                focusTimer.startFocusTimer(10000);
+                focusTimer.startFocusTimer(10000); */
+                focusTimer.startfocustimer(10000);
             }
 
 
