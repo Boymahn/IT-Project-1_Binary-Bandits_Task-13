@@ -136,8 +136,13 @@ public class FocusTimer {
 
     public void requestNotificationPolicyAccess() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!isNotificationPolicyAccessGranted() || !areNotificationsEnabled()) {
+            if (!isNotificationPolicyAccessGranted()) {
                 Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                context.startActivity(intent);
+            } else if (!areNotificationsEnabled()) {
+                Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+                intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
+                intent.putExtra(Settings.EXTRA_CHANNEL_ID, channelId);
                 context.startActivity(intent);
             }
         }
