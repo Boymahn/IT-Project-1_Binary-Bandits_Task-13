@@ -140,9 +140,8 @@ public class FocusTimer {
                 Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                 context.startActivity(intent);
             } else if (!areNotificationsEnabled()) {
-                Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+                Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
                 intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
-                intent.putExtra(Settings.EXTRA_CHANNEL_ID, channelId);
                 context.startActivity(intent);
             }
         }
