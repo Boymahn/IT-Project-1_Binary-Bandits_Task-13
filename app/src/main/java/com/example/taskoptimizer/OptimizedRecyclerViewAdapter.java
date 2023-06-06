@@ -68,17 +68,17 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
         holder.focus.setOnClickListener(new View.OnClickListener() {
             @Override
            public void onClick(View v) {
-                /**if
-                    (focusTimer.isNotificationPolicyAccessGranted()) {
+                if (focusTimer.isNotificationPolicyAccessGranted() && focusTimer.areNotificationsEnabled()) {
                     focusTimer.enableDoNotDisturb();
+                    focusTimer.openAppSettings();
                     if (focusTimer.isDoNotDisturbEnabled()){
                         focusTimer.disableDoNotDisturb();
                     }
                 }
                 else{
                     focusTimer.requestNotificationPolicyAccess();
-                }**/
 
+                }
                 CountdownNotification countdownNotification = new CountdownNotification(context);
                 countdownNotification.showCountdownNotification(30); // Pass the remaining minutes as an argument
                 focusTimer.startFocusTimer(10000);
