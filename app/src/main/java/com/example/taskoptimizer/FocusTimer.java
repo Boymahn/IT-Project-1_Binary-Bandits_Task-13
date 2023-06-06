@@ -134,24 +134,20 @@ public class FocusTimer {
         return false;
     }
 
-
     public void requestNotificationPolicyAccess() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!isNotificationPolicyAccessGranted() || !isNotificationEnabled()) {
+            if (!isNotificationPolicyAccessGranted() || !areNotificationsEnabled()) {
                 Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                 context.startActivity(intent);
             }
         }
     }
 
-    public boolean isNotificationEnabled() {
+    public boolean areNotificationsEnabled() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
-                NotificationChannel channel = notificationManager.getNotificationChannel(channelId);
-                if (channel != null) {
-                    return channel.getImportance() != NotificationManager.IMPORTANCE_NONE;
-                }
+                return notificationManager.areNotificationsEnabled();
             }
         }
         return true;
