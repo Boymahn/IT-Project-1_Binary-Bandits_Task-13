@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.google.android.material.button.MaterialButton;
 
 public class Settings extends AppCompatActivity implements NumberPicker.OnValueChangeListener{
+
     NumberPicker lowPriPicker, medPriPicker, highPriPicker, shortEstPicker, midEstPicker, longEstPicker, altVariable;
 
     @Override
