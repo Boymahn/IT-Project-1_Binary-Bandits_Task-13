@@ -206,6 +206,49 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             db.close();
         }
 
+
+    }
+    public String[] getPriorities(){
+
+            String[] priorities = {};
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.rawQuery("SELECT priorityVar FROM UserMeta",null);
+            if(cursor.moveToFirst()){
+                do{
+                    priorities = cursor.getString(0).split(" ");
+
+                }while(cursor.moveToNext());
+                cursor.close();
+            }
+        return priorities;
+    }
+    public String[] getEstimatedTime(){
+
+        String[] estimatedTime = {};
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT estimatedTimeVar FROM UserMeta",null);
+        if(cursor.moveToFirst()){
+            do{
+                estimatedTime = cursor.getString(0).split(" ");
+
+            }while(cursor.moveToNext());
+            cursor.close();
+        }
+        return estimatedTime;
+    }
+    public int getAltVar(){
+
+        int altVar = 0;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT altVar FROM UserMeta",null);
+        if(cursor.moveToFirst()){
+            do{
+                altVar = cursor.getInt(0);
+
+            }while(cursor.moveToNext());
+            cursor.close();
+        }
+        return altVar;
     }
 
 }

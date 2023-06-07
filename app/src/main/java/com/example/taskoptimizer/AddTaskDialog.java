@@ -29,10 +29,12 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
     private EditText editDescription;
     private Button dateButton;
     private String date;
-    private int difficulty = 0;
-    private int priority = 0;
+
+
 
     CheckBox checkBox;
+    int priority =0;
+    int difficulty =0;
 
 
 
@@ -41,6 +43,8 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.add_task_dialog,null);
+
+
 
         builder.setView(view).setTitle("Add Task").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -56,6 +60,7 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
 
                 String description = editDescription.getText().toString();
 
+
                 RecyclerView recyclerView;
 
                 try (SQLiteHandler db = new SQLiteHandler(getActivity())) {
@@ -63,7 +68,7 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
                     List<OptimizedTask> optimizedTasks;
                     if(checkBox.isChecked()){
 
-                        db.addOptimizedTask(new OptimizedTask(description, getTodayDate(), date, priority, difficulty, 1));
+                        db.addOptimizedTask(new OptimizedTask(description, getTodayDate(), date, priority, difficulty, 1,getContext()));
                         db.updateOptimizedTasks();
                         optimizedTasks = db.getOptimizeTasks();
                         recyclerView = getActivity().findViewById(R.id.optimized_recyclerView);

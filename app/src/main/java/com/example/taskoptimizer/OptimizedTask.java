@@ -1,5 +1,6 @@
 package com.example.taskoptimizer;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
@@ -11,12 +12,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class OptimizedTask {
+
+    SQLiteHandler db;
     private int id;
     private int user_id;
     private String start;
     private String end;
     private int priority;
-    private int difficulty;
+    private int estimatedTime;
     private int status;
 
     private long initialTime, recommendedTime;
@@ -29,13 +32,17 @@ public class OptimizedTask {
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public OptimizedTask(String description, String start, String end, int priority, int difficulty, int status) {
+    public OptimizedTask(String description, String start, String end, int priority, int estimatedTime, int status, Context context) {
         this.description = description;
         this.start = start;
         this.end = end;
         this.priority = priority;
-        this.difficulty = difficulty;
+        this.estimatedTime = estimatedTime;
         this.status = status;
+        //setAltVar();
+        this.db = new SQLiteHandler(context);
+        calcRecommendedTime(priority,estimatedTime);
+        setVariables();
 
     }
 
@@ -91,11 +98,11 @@ public class OptimizedTask {
     }
 
     public int getDifficulty() {
-        return difficulty;
+        return estimatedTime;
     }
 
     public void setDifficulty(int difficulty) {
-        this.difficulty = difficulty;
+        this.estimatedTime = difficulty;
     }
 
     public int getStatus() {
@@ -292,7 +299,6 @@ public class OptimizedTask {
         return lowPriority;
     }
     public void setLowPriority(int lowPriority) {
-
         this.lowPriority = lowPriority;
     }
 
@@ -344,10 +350,28 @@ public class OptimizedTask {
         this.altVariable = altVariable;
     }
 
-    private void setPriorityVars(SQLiteDatabase db){
-        Cursor cursor = db.rawQuery("SELECT priorityVar FROM UserMeta",null);
-        if(cursor.moveToFirst()){
+    private void setPriorityVars(){
+        String[] priorities = db.getPriorities();
 
-        }
+        setLowPriority(Integer.parseInt(priorities[0]));
+        setMidPriority(Integer.parseInt(priorities[1]));
+        setHighPriority(Integer.parseInt(priorities[2]));
+
+    }
+    private void setEstimatedTimeVars(){
+        String[] estimatedTime = db.getEstimatedTime();
+
+        setLowEstimated(Integer.parseInt(estimatedTime[0]));
+        setMidEstimated(Integer.parseInt(estimatedTime[1]));
+        setHighEstimated(Integer.parseInt(estimatedTime[2]));
+
+    }
+    private void setAltVar(){
+        setAltVariable(db.getAltVar());
+    }
+    private void setVariables(){
+        setPriorityVars();
+        setEstimatedTimeVars();
+        setAltVar();
     }
 }
