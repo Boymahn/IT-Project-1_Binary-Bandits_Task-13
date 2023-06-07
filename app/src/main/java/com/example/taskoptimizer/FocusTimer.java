@@ -99,7 +99,7 @@ public class FocusTimer extends NotificationListenerService {
     }
 
     public void requestDndAccess() {
-        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS); // Requesting access to settings
         context.startActivity(intent);
     }
 
