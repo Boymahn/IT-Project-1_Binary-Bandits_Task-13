@@ -130,7 +130,7 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
             focus = itemView.findViewById(R.id.focus_btn);
             delete = itemView.findViewById(R.id.delete_btn);
             edit = itemView.findViewById(R.id.edit_btn);
-            completed_checkbox = itemView.findViewById(R.id.completed_checkBox);
+            completed_checkbox = itemView.findViewById(R.id.completed_checkBox); //Optimized
 
         }
     }

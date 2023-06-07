@@ -120,7 +120,7 @@ public class CountdownNotification {
             return;
         }
         notificationManager.notify(notificationId, notification);
-    }
+    } // Sets focus timer
 
     public void cancelNotification() {
         notificationManager.cancel(notificationId);
