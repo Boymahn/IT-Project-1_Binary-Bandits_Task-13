@@ -17,18 +17,15 @@ public class FocusOverlay extends AppCompatActivity {
 
 
         TextView timerView = findViewById(R.id.timerCountdown);
-        startTimer(10000,timerView);
-
-
-
+        startTimer(200000,timerView);
 
     }
     private void startTimer(long focusTimeInMillis, TextView output){
-        timer = new CountDownTimer(focusTimeInMillis, 1000) {
+         CountDownTimer timer = new CountDownTimer(focusTimeInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 long minutesLeft = millisUntilFinished / (60 * 1000);
-                output.setText((int) minutesLeft);
+                output.setText(String.valueOf( minutesLeft)+" Mins");
 
             }
 

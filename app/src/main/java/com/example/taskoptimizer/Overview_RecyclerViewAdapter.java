@@ -54,7 +54,7 @@ public Overview_RecyclerViewAdapter(Context context, List<OptimizedTask> optimiz
             super(itemView);
 
             checkBox = itemView.findViewById(R.id.completed_checkBox);
-            description = itemView.findViewById(R.id.description_textview);
+            //description = itemView.findViewById(R.id.description);
             date = itemView.findViewById(R.id.display_end_date);
         }
     }

@@ -76,8 +76,8 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
                             focusTimer.stopFocusTimer();
                         }else{
                             focusTimer.enableDoNotDisturb();
-                            focusTimer.startFocusTimer(1000);
-                            focusTimer.startFocusTimerScreen(1000);
+                            focusTimer.startFocusTimer(200000);
+                            focusTimer.startFocusTimerScreen(200000);
 
 
 

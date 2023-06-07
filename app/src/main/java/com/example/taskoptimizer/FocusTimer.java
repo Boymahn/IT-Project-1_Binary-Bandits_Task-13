@@ -129,8 +129,6 @@ public class FocusTimer {
 
 package com.example.taskoptimizer;
 
-
-
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -316,7 +314,7 @@ public class FocusTimer extends NotificationListenerService {
         context.startActivity(intent);
     }
 
-   /* {
+   /** {
         // Notifications are not enabled, show an alert to the user
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Notifications Disabled");
@@ -331,8 +329,7 @@ public class FocusTimer extends NotificationListenerService {
         builder.show();
 
 
-    }*/
-
+    }**/
 
     public void cleanup() {
         cleanupNotificationPolicyAccessReceiver();
