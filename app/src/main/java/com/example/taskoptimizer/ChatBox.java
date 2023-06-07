@@ -16,6 +16,11 @@ import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class ChatBox extends AppCompatActivity {
     private LinearLayout chatContainer;
     private EditText messageEditText;
@@ -23,7 +28,8 @@ public class ChatBox extends AppCompatActivity {
 
     private WebSocket webSocket;
 
-    private static final String WITAI_WEBSOCKET_URL = "wss://api.wit.ai/ws";
+    private static final String WITAI_WEBSOCKET_URL = "ws://localhost:8080";
+    private static final String WITAI_API_ACCESS_TOKEN = "CCIYWQ5QK3HXUTVYQ5EQLSBVU72PIDAF";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +57,8 @@ public class ChatBox extends AppCompatActivity {
 
     private void connectWebSocket() {
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(WITAI_WEBSOCKET_URL).build();
+        String webSocketUrl = "ws://localhost:8080"; // Replace with your WebSocket server URL
+        Request request = new Request.Builder().url(webSocketUrl).build();
         WebSocketListener webSocketListener = new WebSocketListener() {
             @Override
             public void onOpen(WebSocket webSocket, Response response) {
@@ -75,7 +82,8 @@ public class ChatBox extends AppCompatActivity {
                 // WebSocket connection failure
             }
         };
-        webSocket = client.newWebSocket(request, webSocketListener);
+        client.newWebSocket(request, webSocketListener);
+        client.dispatcher().executorService().shutdown();
     }
 
     private void sendMessage() {
@@ -89,6 +97,9 @@ public class ChatBox extends AppCompatActivity {
 
             // Clear the message input field
             messageEditText.setText("");
+
+            // Process the user message using the Wit.ai API
+            processMessage(message);
         }
     }
 
@@ -103,6 +114,47 @@ public class ChatBox extends AppCompatActivity {
         chatContainer.addView(textView);
     }
 
+    private void processMessage(String message) {
+        // Create a Retrofit instance
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.wit.ai/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Create a WitAiService instance
+        WitAiService witAiService = retrofit.create(WitAiService.class);
+
+
+        String accessToken = "CCIYWQ5QK3HXUTVYQ5EQLSBVU72PIDAF";
+
+        // Send the user message to the Wit.ai API
+        Call<WitAiResponse> call = witAiService.sendMessage("Bearer " + accessToken, message);
+        call.enqueue(new Callback<WitAiResponse>() {
+            @Override
+            public void onResponse(Call<WitAiResponse> call, retrofit2.Response<WitAiResponse> response) {
+                if (response.isSuccessful()) {
+                    // Handle the successful response from Wit.ai
+                    WitAiResponse witAiResponse = response.body();
+                    if (witAiResponse != null) {
+                        String text = witAiResponse.getText();
+                        // Perform necessary actions with the text response
+                        addMessageToChat("Bot: " + text);
+                    }
+                } else {
+                    // Handle the error response from Wit.ai
+                    // Display an error message or take appropriate action
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WitAiResponse> call, Throwable t) {
+                // Handle the network or API call failure
+                // Display an error message or take appropriate action
+            }
+        });
+    }
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -112,4 +164,3 @@ public class ChatBox extends AppCompatActivity {
         }
     }
 }
-
