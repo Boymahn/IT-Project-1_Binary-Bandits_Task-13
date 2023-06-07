@@ -41,6 +41,7 @@
         android:layout_height="match_parent"
         android:layout_above="@id/inputLayout"
         android:layout_below="@id/headerLayout"
+        android:contentDescription="@string/BackArrow"
         android:padding="16dp">
 
         <LinearLayout
@@ -66,7 +67,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Type a question about TaskOptimizer to start chatting!"
-            android:textColorHint="#A9A9A9"
             android:textSize="14sp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp" />

@@ -149,6 +149,7 @@ public class FocusTimer extends NotificationListenerService {
     private Context context;
     private CountDownTimer timer;
     private long focusTimeInMillis;
+    public long remainingTime;
 
     private String channelId = "countdown_channel";
 
@@ -168,7 +169,7 @@ public class FocusTimer extends NotificationListenerService {
                 if (isNotificationPolicyAccessGranted() && areNotificationsEnabled()) {
                     // Notification policy access granted, start the focus timer
                     enableDoNotDisturb();
-                    startFocusTimer();
+
 
                 }
             }
@@ -188,11 +189,10 @@ public class FocusTimer extends NotificationListenerService {
 
     public boolean isNotificationPolicyAccessGranted() {
         //NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-       NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+        NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
 
         return notificationManager.isNotificationPolicyAccessGranted();
     }
-
 
 
     public void requestNotificationPolicyAccess() {
@@ -267,45 +267,71 @@ public class FocusTimer extends NotificationListenerService {
         return false;
     }
 
-    public void startFocusTimer() {
-        if (isNotificationPolicyAccessGranted()) {
-            if (areNotificationsEnabled()) {
-                stopFocusTimer(); // Stop the previous timer, if any
+    public void startFocusTimer(long focusTimeInMill) {
+        this.focusTimeInMillis = focusTimeInMill;
 
-                countdownNotification = new CountdownNotification(context);
 
-                timer = new CountDownTimer(focusTimeInMillis, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        long minutesLeft = millisUntilFinished / (60 * 1000);
-                        countdownNotification.showCountdownNotification(minutesLeft);
-                    }
+        stopFocusTimer(); // Stop the previous timer, if any
 
-                    @Override
-                    public void onFinish() {
-                        countdownNotification.cancelNotification();
-                        // Perform actions after the focus time is over
-                    }
-                }.start();
-            } else {
-                // Notifications are not enabled, show an alert to the user
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Notifications Disabled");
-                builder.setMessage("Please enable notifications for this app to receive alerts even when 'Do Not Disturb' is enabled.");
-                builder.setPositiveButton("Open Settings", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        openAppSettings();
-                    }
-                });
-                builder.setNegativeButton("Cancel", null);
-                builder.show();
+        countdownNotification = new CountdownNotification(context);
+
+        timer = new CountDownTimer(focusTimeInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                remainingTime = millisUntilFinished / (60 * 1000);
             }
-        } else {
-            // Notification policy access not granted, request it
-            requestNotificationPolicyAccess();
-        }
+
+            @Override
+            public void onFinish() {
+                countdownNotification.cancelNotification();
+                // Perform actions after the focus time is over
+                disableDoNotDisturb();
+            }
+        }.start();
+
     }
+    public void startFocusTimerScreen(long focusTimeInMill) {
+        this.focusTimeInMillis = focusTimeInMill;
+
+
+        stopFocusTimer(); // Stop the previous timer, if any
+
+
+        timer = new CountDownTimer(focusTimeInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long minutesLeft = millisUntilFinished / (60 * 1000);
+                    countdownNotification.showCountdownNotification(minutesLeft);
+
+            }
+
+            @Override
+            public void onFinish() {
+                countdownNotification.cancelNotification();
+                // Perform actions after the focus time is over
+                disableDoNotDisturb();
+            }
+        }.start();
+        Intent intent = new Intent(context, FocusOverlay.class);
+        context.startActivity(intent);
+    }
+
+   /* {
+        // Notifications are not enabled, show an alert to the user
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Notifications Disabled");
+        builder.setMessage("Please enable notifications for this app to receive alerts even when 'Do Not Disturb' is enabled.");
+        builder.setPositiveButton("Open Settings", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                openAppSettings();
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+
+
+    }*/
 
 
     public void cleanup() {

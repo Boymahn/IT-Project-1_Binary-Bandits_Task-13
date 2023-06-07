@@ -27,7 +27,7 @@ public class FocusTimerActivity extends AppCompatActivity {
             long focusTimeInMillis = data.getLongExtra("focusTimeInMillis", 0);
             if (focusTimeInMillis > 0) {
                 FocusTimer focusTimer = new FocusTimer(getApplicationContext());
-                focusTimer.startFocusTimer(focusTimeInMillis);
+                //focusTimer.startfocustimer(focusTimeInMillis);
             }
         }
     }

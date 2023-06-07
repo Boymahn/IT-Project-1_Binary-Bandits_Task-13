@@ -31,7 +31,8 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
     public OptimizedRecyclerViewAdapter(Context context, List<OptimizedTask> optimizedTasks){
         this.context = context;
         this.optimizedTaskList = optimizedTasks;
-        focusTimer = new FocusTimer(this.context);
+        focusTimer = new FocusTimer(context);
+
     }
 
     public void updateAdded(int position){
@@ -75,7 +76,12 @@ public class OptimizedRecyclerViewAdapter extends RecyclerView.Adapter<Optimized
                             focusTimer.stopFocusTimer();
                         }else{
                             focusTimer.enableDoNotDisturb();
-                            focusTimer.startFocusTimer();
+                            focusTimer.startFocusTimer(1000);
+                            focusTimer.startFocusTimerScreen(1000);
+
+
+
+
                         }
                     }else{
                         focusTimer.requestNotificationPolicyAccess();

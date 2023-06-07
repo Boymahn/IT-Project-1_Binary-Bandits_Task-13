@@ -1,13 +1,16 @@
 package com.example.taskoptimizer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -61,10 +64,12 @@ public class ChatBox extends AppCompatActivity {
         Request request = new Request.Builder().url(webSocketUrl).build();
         WebSocketListener webSocketListener = new WebSocketListener() {
             @Override
-            public void onOpen(WebSocket webSocket, Response response) {
+            public void onOpen(@NonNull WebSocket webSocket, Response response) {
                 // WebSocket connection is established
                 ChatBox.this.webSocket = webSocket;
+                Log.d("WebSocketListener", "WebSocket connection opened");
             }
+
 
             @Override
             public void onMessage(WebSocket webSocket, String text) {
@@ -80,6 +85,7 @@ public class ChatBox extends AppCompatActivity {
             @Override
             public void onFailure(WebSocket webSocket, Throwable t, Response response) {
                 // WebSocket connection failure
+                Log.d("WebSocketListener", "WebSocket failed");
             }
         };
         client.newWebSocket(request, webSocketListener);
@@ -100,6 +106,8 @@ public class ChatBox extends AppCompatActivity {
 
             // Process the user message using the Wit.ai API
             processMessage(message);
+        } if(webSocket == null){
+            Toast.makeText(this,"Connection Error", Toast.LENGTH_SHORT).show();
         }
     }
 

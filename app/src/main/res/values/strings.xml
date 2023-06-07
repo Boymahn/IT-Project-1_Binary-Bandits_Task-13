@@ -53,5 +53,8 @@
     <string name="hard">Hard</string>
     <string name="alt_variable">Alt Variable</string>
     <string name="sign_up">SIGN UP</string>
+    <string name="focus_timer_active">Focus Timer Active!</string>
+    <string name="textview">TextView</string>
+    <string name="stop_focus_timer">Stop Focus Timer</string>
 
 </resources>
