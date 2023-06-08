@@ -33,8 +33,8 @@ public class AddTaskDialog  extends AppCompatDialogFragment {
 
 
     CheckBox checkBox;
-    int priority =0;
-    int difficulty =0;
+    private int priority=0;
+    private int  difficulty=0;
 
 
 
