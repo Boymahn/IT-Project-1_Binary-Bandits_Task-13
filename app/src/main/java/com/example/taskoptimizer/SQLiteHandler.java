@@ -13,8 +13,7 @@ import androidx.annotation.RequiresApi;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-
+import java.util.Objects;
 
 
 public class SQLiteHandler extends SQLiteOpenHelper {
@@ -225,7 +224,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public String[] getEstimatedTime(){
 
         String[] estimatedTime = {};
-        SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT estimatedTimeVar FROM UserMeta",null);
         if(cursor.moveToFirst()){
             do{
@@ -239,7 +238,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public int getAltVar(){
 
         int altVar = 0;
-        SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT altVar FROM UserMeta",null);
         if(cursor.moveToFirst()){
             do{
@@ -249,6 +248,22 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             cursor.close();
         }
         return altVar;
+    }
+    public boolean isUser(String email, String password){
+        boolean match = false;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT email, password FROM UserMeta", null);
+        if(cursor.moveToFirst()){
+            do{
+                if(Objects.equals(cursor.getString(0), email) && Objects.equals(cursor.getString(1), password)){
+                    match = true;
+                }else{
+                    match = false;
+                }
+            }while(cursor.moveToNext());
+        }
+
+        return match;
     }
 
 }

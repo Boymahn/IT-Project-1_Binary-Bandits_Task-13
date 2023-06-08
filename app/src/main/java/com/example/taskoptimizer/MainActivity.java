@@ -76,10 +76,19 @@ public class MainActivity extends AppCompatActivity {
                  String name = username.getText().toString().trim();
                  String pass = password.getText().toString().trim();
 
-                 if (name.isEmpty() && pass.isEmpty()) {
 
+
+                 if (name.isEmpty() || pass.isEmpty()) {
+                     Toast.makeText(MainActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
                  } else {
-                 Toast.makeText(MainActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
+                     if(db.isUser(name,pass)){
+                         Intent intent = new Intent(MainActivity.this, NavBarControl.class);
+                         startActivity(intent);
+
+                     }
+                     else{
+                         Toast.makeText(MainActivity.this, "User not found", Toast.LENGTH_SHORT).show();
+                     }
                  }
 
             }

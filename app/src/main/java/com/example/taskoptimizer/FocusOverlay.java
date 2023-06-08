@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class FocusOverlay extends AppCompatActivity {
+public class  FocusOverlay extends AppCompatActivity {
     private CountDownTimer timer;
     private long focusTimeInMillis;
     public long remainingTime;
